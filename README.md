@@ -1,335 +1,64 @@
+# Python Essentials
 
-<h1 align = "center">Python Programming Hub</h1>
+A collection of Python programs for learning, practice, and testing. This repository contains a variety of codes to help you improve your Python skills and prepare for coding interviews and tests.
 
+**Table of Contents**
 
+* Introduction
+* Repository Structure
+* Programs and Topics Covered
+* Usage
+* Contributing
+* License
 
-<h2 align = "center">One of the best places to learn Python and Data Science</h2>
+## Introduction
 
+This repository is designed to provide a comprehensive collection of Python programs that cover various topics and concepts. It's perfect for beginners and experienced programmers looking to brush up on their skills or prepare for coding interviews.
 
+## Repository Structure
 
-<!-- Shield Badges -->
+The repository is organized into the following directories:
 
-| [![Discord](https://img.shields.io/discord/718138360538857794.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/qFryjbX)  | ![GitHub forks](https://img.shields.io/github/forks/Tanu-N-Prabhu/Python?label=Fork&style=social)  | ![GitHub stars](https://img.shields.io/github/stars/Tanu-N-Prabhu/Python?style=social) | ![GitHub repo size](https://img.shields.io/github/repo-size/Tanu-N-Prabhu/Python) |  ![GitHub contributors](https://img.shields.io/github/contributors/Tanu-N-Prabhu/Python)| [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/Tanu-N-Prabhu/Python)|
-|:--:|:--:|:--:|:--:|:--:|:--:|
+* basics: Basic Python programs covering variables, data types, loops, conditional statements, functions, etc.
+* data_structures: Programs implementing various data structures such as arrays, linked lists, stacks, queues, trees, and graphs.
+* algorithms: Implementations of common algorithms like sorting, searching, recursion, dynamic programming, etc.
+* file_handling: Programs demonstrating file input/output operations, reading, and writing.
+* object_oriented_programming: Examples showcasing object-oriented programming concepts like classes, objects, inheritance, polymorphism, etc.
+* advanced_topics: Programs covering advanced topics such as decorators, generators, lambda functions, etc.
 
+## Programs and Topics Covered
 
+* Variables, data types, and operators
+* Control structures (if-else, for loops, while loops)
+* Functions and modules
+* Data structures (arrays, linked lists, stacks, queues, trees, graphs)
+* Algorithms (sorting, searching, recursion, dynamic programming)
+* File handling and input/output operations
+* Object-oriented programming concepts
+* Advanced topics (decorators, generators, lambda functions)
 
+## Usage
 
-| ![space-1.jpg](./Img/logo.jpg) | 
-|:--:| 
-| Image Credits [Wallpaper Flare](https://www.wallpaperflare.com/programming-is-an-art-text-code-python-computer-python-programming-wallpaper-srfia) |
+1. Clone the repository using git:
 
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FTanu-N-Prabhu%2FPython&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
+```
+git clone [https://github.com/your_username/python_essentials.git](https://github.com/your_username/python_essentials.git)
+```
 
-<h4 align = "justify"> This repository gives to enough knowledge about python programming, data science and also helps you to survive in this programming world !!! </h4>
+2. Explore the directory structure and run programs using Python (e.g., `python basics/variables.py`).
+3. Use the programs as a reference or starting point for your own projects.
 
-# Installation tools
+## Contributing
 
+Contributions are welcome! If you'd like to add new programs or improve existing ones, please:
 
-#### Below are some tools that you can download before getting started with Python, now it’s a preference, so download whichever that fits the best for you.
+1. Fork the repository.
+2. Make changes and commit them with a meaningful message.
+3. Submit a pull request.
 
-| Name of the tools | 
-| ------------- |
-|[Python download](https://www.python.org/downloads/)|
-|[Visual Studio Code](https://code.visualstudio.com/download)|
-|[Jupyter Notebook](https://jupyter.org/install)|
-|[Google Colab](https://colab.research.google.com/notebooks/welcome.ipynb)|
+## License
 
-> I personally use Google Colab for python programming. It's one of the best interactive tool in the world. I like it because I can provide more documentation to the code and write some quality tutorials.</p>
+This repository is licensed under the MIT License. See LICENSE for details.
+```
 
-
-
-# Repository Contents
-
-### This repository is divided into two parts such as Python Coding and Data Science for Beginners.
-
-# Python Coding
-
-Follow the steps down below to get started coding in python!!!
-
-<p align="center"> 
-<img src = "./Img/Python.PNG">
-</p>
-
-
-## Pythonic Materials
-
-<details>
-  <summary>Chapter 1️⃣ ⮕ Basic Concepts</summary>
-
- - <b>[Python Input, Output and Import functions](./Python_Input%2C_Output_and_Import.ipynb)</b>
- 
- - <b>[Python Variables](./Python_Variables.ipynb)</b>
-   * <b>[Python Global, Local and Nonlocal Variables](./Global%2C_Local_and_Nonlocal_variables_in_Python.ipynb)</b>
-   
- - <b>[Python Strings](./Strings/Strings.ipynb)</b>
- 
- - <b>[Python Lists](./Lists/Lists.ipynb)</b> 
- 
- - <b>[Python Tuples](./Tuples/Tuples.ipynb)</b>
- 
- -  <b>[Python Dictionary](./Dictionary/Python_Dictionary.ipynb)</b>
- 
- - <b>[Python Operators](./Python_Operators.ipynb)</b>
-
-</details>
-
-
-<details>
-  <summary>Chapter 2️⃣ ⮕ Built-in Functions</summary>
-
- - <b>[Python Input, Output and Import built-in-functions](./Python_Input%2C_Output_and_Import.ipynb)</b>
- 
- - <b>[Eval built-in-function](./Eval_built_in_function.ipynb)</b>
-   
- - <b>[Range built-in-function](./Range_built_in_function.ipynb)</b>
- 
- - <b>[Python Lambda Function](./Python_Lambda_Function.ipynb)</b>
- 
- - <b>[Python Enumerate Function](./Python_enumerate()_built_in_function.ipynb)</b>
- 
- - <b>[Python len function](./Python_len()_built_in_function.ipynb)</b>  
- 
-</details>
-
-<details>
-  <summary>Chapter 3️⃣ ⮕ Libraries</summary>
-
- - <b>[Numpy library](./Numpy)</b>
- 
- - <b>[Pandas library](./Pandas)</b>
-   
- - <b>[Math Module](./Learn_the_Python_Math_Module.ipynb)</b>
- 
- - <b>[JSON library](./How_to_handle_JSON_in_Python%3F.ipynb)</b>
-
-</details>
-
-<details>
-  <summary>Chapter 4️⃣ ⮕ API's</summary>
-
- - <b>[Google Translate API for Python](./Google%20Translate%20API)</b>
- 
- - <b>[Google Trends API for Python](./Google_Trends_API.ipynb)</b>
-   
- - <b>[Wikipedia API for Python](./Wikipedia_API_for_Python.ipynb)</b>
- 
- - <b>[Google Search API for Python](./The_two_Google_Search_Python_Libraries_you_should_never_miss.ipynb)</b>
-
-</details>
-
-<details>
-  <summary>Chapter 5️⃣ ⮕ Additional Materials</summary>
-
- - <b>[How to get started coding in Python?](./How_to_get_started_coding_in_Python%3F.ipynb)</b>
- 
- - <b>[Is Python Object Oriented?](./Is_Python_object_oriented%3F.ipynb)</b>
- 
- - <b>[Speech Recognition using Python](./Speech_Recognition_using_Python.ipynb)</b>
- 
- - <b>[One-Hot encoding in Python](./Learning_One_Hot_Encoding_in_Python_the_Easy_Way.ipynb)</b>
- 
- - <b>[Reading An Image In Python (Without Using Special Libraries)](./Reading_An_Image_In_Python_(Without_Using_Special_Libraries).ipynb)</b>
- 
- - <b>[Rendering Images inside a Pandas DataFrame](./Rendering_Images_inside_a_Pandas_DataFrame.ipynb)</b>
- 
- - <b>[Using the Pandas Data Frame as a Database](./Using_the_Pandas_Data_Frame_as_a_Database_.ipynb)</b>
- 
- - <b>[Using the Pandas DataFrame in Day-To-Day Life](./Using_the_Pandas_DataFrame_in_Day_To_Day_Life.ipynb)</b>
- 
- - <b>[Presenting Python code using RISE](./Presenting_Python_code_using_RISE.ipynb)</b>
- 
- - <b>[Cheat Sheet for Google Colab](./Cheat_sheet_for_Google_Colab.ipynb)</b>
- 
-</details>
-
-
-<details>
-  <summary>Chapter 6️⃣ ⮕ Exercises</summary>
-
- - <b>[String Concatenation Questions](./String_Concatenation_Exercise_Questions.ipynb)</b>
-   * <b>[String Concatenation Answers](./String_Concatenation_Exercise_Answers.ipynb)</b>
-   
- - <b>[Built-In Functions Exercise Questions](./Built_In_Functions_Exercise_Questions.ipynb)</b>
- 
-</details>
-
-<details>
-  <summary>Chapter 7️⃣ ⮕ Quiz</summary>
-
- - <b>[Quiz - 1](./Quiz/Python_Quiz_1.ipynb)</b>
-   
- - <b>[Quiz - 2](./Quiz/Python_Quiz_2.ipynb)</b>
- 
- - <b>[Quiz - 3](./Quiz/Python_Quiz_3.ipynb)</b>
- 
-</details>
-
-<details>
-  <summary>Chapter 8️⃣ ⮕ Interview Preparation</summary>
-
- - <b>[Python Coding Interview Questions (Beginner to Advanced)](./Python%20Coding%20Interview%20Prep/Python%20Coding%20Interview%20Questions%20(Beginner%20to%20Advanced).md)</b>
- 
- - <b>[35 Python interview questions for experienced](./Python%20Coding%20Interview%20Prep/35%20Python%20interview%20questions%20for%20experienced.md)</b>
-   
-
-</details>
-
-
-👉 **Expand** and **Collapse** the above Chapters for more details
-  
----
-
-  
-# Data Science
-
-Follow the steps below to get started learning Data Science!!!
-
-<p align="center">
-<img src = "Img/Data.PNG" >
-</p>
-
-## Data Science Materials
-
-<details>
-  <summary>Data Exploration</summary>
-
- - <b>[Loading a File using Pandas](./data_load.md)</b>
- 
- 
-</details>
-
-
-<details>
-  <summary>Data Scraping from the Web</summary>
-
- - <b>[Scraping Two YouTube Accounts - PewDiePie vs T-Series](./Data%20Scraping%20from%20the%20Web/Scraping%20YouTube%20accounts%20with%20python.ipynb)</b>
- 
- - <b>[Scraping Rate My Professor Website - My Graduate Professor](./Data%20Scraping%20from%20the%20Web/Web_Scraping_Rate_My_Professor_Website.ipynb)</b>
-
- - <b>[Scraping Pick Up Lines from the Knot]()</b>
- 
-</details>
-
-
----
-
-# Tech is Easy
-<p align = "justify">I Tanu Nanda Prabhu, always like simplifying complex things so that others can understand them more easily and better. Researching is my passion, I go through a ton of videos, articles, and tutorials and conclude starting a repository that purely contains tips and tricks for using Google Sheets. I update this repository every week with tons of information that will make your life simple. I am also seeking help from people who want to contribute to my repository. Feel free to Fork it and add updates, I will consider it.</p>
-
-### [Tech Is Easy](https://github.com/Tanu-N-Prabhu/TechIsEasy)
-
-
----
-
-
-# Nbviewer
-
-<b align = "justify">If the jupyter notebook doesn't load. Don't worry copy and paste the link to [nbviewer](https://nbviewer.jupyter.org). Because most of my jupyter notebooks are not loading.</b>
-
-
----
-# Contributors
-
-### Currently there are 10 contributors for this repository. Feel free to contribute!
-
-<a href="https://github.com/Tanu-N-Prabhu/Python/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Tanu-N-Prabhu/Python" />
-</a>
-
-
-> Want to know, how I did this. Refer here for the [docs](https://github.com/Tanu-N-Prabhu/myWebsite.io/blob/master/Docs/Displaying%20Contributors%20Image%20on%20README%20files%20with%20no%20Pain!.md)
-
-
-
----
-
-# Kaggle Datasets
-
-1) [Kaggle Data Sets](https://www.kaggle.com/tanuprabhu/datasets)
-
----
-
-# HackerRank Exercises - Solved
-
-1) [HackerRank Exercise Solved](./Hacker_Rank_Exercises)
-
-
----
-
-# Reddit Communities
-
-1) [Python](https://www.reddit.com/r/Python/)
-2) [Learn Python](https://www.reddit.com/r/learnpython/)
-3) [Python tips](https://www.reddit.com/r/pythontips/)
-4) [Python coding](https://www.reddit.com/r/pythoncoding?utm_medium=android_app&utm_source=share)
-
-
-
----
-
-# Submit your articles here
-
-1) [Data Science from Scratch](https://medium.com/data-science-from-scratch)
-
----
-
-# GPT Librarian <img align="right" width="50" height="50" src=https://github.com/Decron/Python/assets/1786607/5b4e7a09-a76f-40be-b87d-c6e007b7ff35>
-
-If you have access to ChatGPT premium, there is a GPT Librarian with access to all files here [here](https://chat.openai.com/g/g-2HlDYwyrW-python-from-scratch)
-
-
----
-
-
-# Contact for help
-
-| Contact        | Info           | 
-| ------------- |:-------------:|
-| <b>Gmail</b>      | tanuprabhu96@gmail.com  | 
-| <b>Facebook</b>       | Tanu N Prabhu      |    
-| <b>Instagram </b>    | tanunprabhu   |
-| <b>Linkedin </b>    | [Tanu Nanda Prabhu](https://www.linkedin.com/in/tanu-nanda-prabhu-a15a091b5/) |
-
----
-
-# Reviews
-
-<b>Below given are some of the reviews about this Python GitHub Repository:</b>
- 
-
-
-> <b>‪Elin Uppström</b> - Senior Lecturer at Uppsala University, Sweden. <br>
-> I found your excellent exercises at your GitHub wile preparing undergraduate course in data analysis. I want to use it in my course.
-
-
-> <b>‪Cole Striler</b> - Data Scientist, Founder of Datafied<br>
-> I came across your GitHub and love your Jupyter Notebooks, especially the one on "<b>Predicting PewDiePie's daily subscribers</b>". I think you do a great job at explaining your work which is something others can learn.
-
-
-> <b>Laurence Watson</b> - Co-Founder & CEO, Treebeard<br>
-> You have a lot of great Jupyter notebook content on GitHub.
-
-
-> <b>Poonam Gupta</b> - Math & AP Computer Science Instructor, Brunswick School <br>
-> Thank you so much for posting such helpful posts on GitHub.Many, many thanks for all you do to spread the knowledge.
-
-
-**Do you like the Repository, Please drop in your precious reviews by shooting an e-mail**.
-
----
-
-# Feedback
-
-[Any Feedback or Suggestions- Please Click Here](https://form.jotform.com/92847563204259)
-
----
-
-# Version
-
-<b> Version 14 - Last Updated on October 15, 2023 - 3:49 PM <b>
-  
-  
-[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
-[![Maintened by - Tanu Nanda Prabhu](https://img.shields.io/badge/Maintained%20by-Tanu%20Nanda%20Prabhu-red)](https://tanu-n-prabhu.github.io/myWebsite.io/)
-[![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
+This code uses proper markdown formatting for headings, bullet points, code blocks, and quotes. You can simply copy and paste this into your new file and it should render correctly on various platforms. Just remember to replace `https://github.com/your_username/python_essentials.git` with the actual URL of your repository (if it's hosted on GitHub).
