@@ -5,7 +5,6 @@ def gcd(a, b):
     # till remainder is 0
     while b:
         a, b = b, a % b
-        print(a, b)
     return a
 
 # Room dimensions
