@@ -7,27 +7,30 @@ base_folder = "generated_files"
 os.makedirs(base_folder, exist_ok=True)
 
 def extract_and_save_code(response: str):
-    # Folder structure regex to identify file paths
-    folder_file_pattern = re.compile(r'#### ([\w/]+\.py|requirements\.txt)\n```(?:python|plaintext)?\n(.*?)```', re.DOTALL)
+    try:
+        # Folder structure regex to identify file paths
+        folder_file_pattern = re.compile(r'#### ([\w/]+\.py|requirements\.txt)\n```(?:python|plaintext)?\n(.*?)```', re.DOTALL)
 
-    # Extract each file's path and its code content
-    matches = folder_file_pattern.findall(response)
+        # Extract each file's path and its code content
+        matches = folder_file_pattern.findall(response)
 
-    for match in matches:
-        file_path = match[0]  # File path, e.g., 'app/main.py'
-        file_content = match[1]  # File content
+        for match in matches:
+            file_path = match[0]  # File path, e.g., 'app/main.py'
+            file_content = match[1]  # File content
 
-        # Create the necessary folder structure
-        folder = os.path.dirname(file_path)
-        if folder:
-            os.makedirs(folder, exist_ok=True)
+            # Create the necessary folder structure
+            folder = os.path.dirname(file_path)
+            if folder:
+                os.makedirs(folder, exist_ok=True)
 
-        # Add this line inside the function where the file path is used.
-        full_file_path = os.path.join(base_folder, file_path)
+            # Add this line inside the function where the file path is used.
+            full_file_path = os.path.join(base_folder, file_path)
 
-        # Write the file with its content
-        with open(full_file_path, 'w') as f:
-            f.write(file_content)
+            # Write the file with its content
+            with open(full_file_path, 'w') as f:
+                f.write(file_content)
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 # Example usage:
 response_string = """{
