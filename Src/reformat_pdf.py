@@ -44,7 +44,11 @@ def reformat_pdf(input_pdf_path, output_pdf_path, max_chars_per_line, lines_per_
     # Create a new PDF with the formatted text
     page_width = 3.5 * inch
     page_height = 5.5 * inch
-    c = canvas.Canvas(output_pdf_path, pagesize=(page_width, page_height))
+    c = canvas.Canvas(
+        output_pdf_path,
+        pagesize=(page_width, page_height),
+        initialFontSize=10
+    )
 
     # Initialize y-position and line counter
     margin_top = 20  # Top margin in points
