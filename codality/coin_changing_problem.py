@@ -42,15 +42,30 @@ def greedy_coin_changing(coins: List[int], amount: int) -> List[Tuple[int, int]]
 
     return result
 
-
-if __name__ == '__main__':
+def test_greedy_coin_changing():
     coins = [1, 3, 4]
     amount = 6
-    print(f'coins: {coins} and amount: {amount}')
-    print(greedy_coin_changing(coins, amount))
+    result = greedy_coin_changing(coins, amount)
+    assert result == [(4, 1), (3, 0), (1, 2)]
 
     coins = [1, 2, 5, 10]
     amount = 15
-    print(f'coins: {coins} and amount: {amount}')
-    print(greedy_coin_changing(coins, amount))
+    result = greedy_coin_changing(coins, amount)
+    assert result == [(10, 1), (5, 1), (2, 0), (1, 0)]
+
+    print('PASSED')
+
+
+if __name__ == '__main__':
+    # coins = [1, 3, 4]
+    # amount = 6
+    # print(f'coins: {coins} and amount: {amount}')
+    # print(greedy_coin_changing(coins, amount))
+
+    # coins = [1, 2, 5, 10]
+    # amount = 15
+    # print(f'coins: {coins} and amount: {amount}')
+    # print(greedy_coin_changing(coins, amount))
+    test_greedy_coin_changing()
+
     
