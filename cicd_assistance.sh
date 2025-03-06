@@ -18,6 +18,8 @@ CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 # Fetch latest updates
 echo "Step 1: Fetching latest updates from origin..."
+git diff --quiet || { echo "Error: Uncommitted changes found! Please commit or stash your changes before proceeding."; exit 1; }
+git checkout "$CURRENT_BRANCH" # Switch back to current branchs
 git fetch origin
 
 # Checkout the specified branch
