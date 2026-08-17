@@ -171,5 +171,11 @@ sorted_people = sorted(people, key=operator.itemgetter('age'))
 print(sorted_people)
 # [{'name': 'Dave', 'age': 20}, {'name': 'John', 'age': 25}, {'name': 'Jane', 'age': 30}]
 
+# counter to count the frequency of elements in a list
+my_list = ['apple', 'banana', 'orange', 'apple', 'banana', 'apple']
+counter = Counter(my_list)
+print(counter)
+# Counter({'apple': 3, 'banana': 2, 'orange': 1})
+
 
 

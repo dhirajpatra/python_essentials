@@ -22,6 +22,14 @@ print(f"Difference between {dt1} and {dt2} is {diff}")
 one_week_later = dt1 + timedelta(weeks=1)
 print(f"One week later: {one_week_later}")
 
+now_str_formatted = now.strftime("%Y-%m-%d %H:%M:%S")
+print(f"Current date and time in string format: {now_str_formatted}")
+
+next_week = now + timedelta(weeks=1)
+next_week_str = next_week.strftime("%Y-%m-%d %H:%M:%S")
+print(f"Date and time one week from now: {next_week_str}")
+
+
 
 
 

@@ -66,3 +66,22 @@ evens = [x for x in squares if x % 2 == 0]
 pairs = [(x, y) for x in range(3) for y in range(3)]
 flattened = [x for sublist in [[1, 2], [3, 4], [5]] for x in sublist]
 
+# any and all functions
+numbers = [1, 2, 3, 4, 5]
+# Check if any number is greater than 3
+any_greater_than_3 = any(num > 3 for num in numbers)
+# Check if all numbers are positive
+all_positive = all(num > 0 for num in numbers)
+
+# enumerate function
+fruits = ['apple', 'banana', 'cherry']
+for index, fruit in enumerate(fruits):
+    print(f"Index: {index}, Fruit: {fruit}")
+
+# list to dictionary using dictionary comprehension
+fruits = ['apple', 'banana', 'cherry']
+fruit_dict = {fruit: len(fruit) for fruit in fruits}
+print(fruit_dict)
+
+fruit_dict = dict(zip(['apple', 'banana', 'cherry'], [1, 2, 3, 4]))
+print(fruit_dict)
