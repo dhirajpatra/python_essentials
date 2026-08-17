@@ -120,13 +120,14 @@ class RESTAPIClient:
                 # It will submit the call_api_for_single_id function for each sys_id in sys_ids
                 executor.submit(self.call_api_for_single_id, sys_id): sys_id for sys_id in sys_ids
             }
-            
+
             # Process completed tasks
             # Watches the tasks and yields each Future the moment its API call finishes.
             # It does not wait in order; it yields fast tasks first.
             for future in as_completed(future_to_sys_id):
                 # Get the system ID associated with the completed future task
                 sys_id = future_to_sys_id[future]
+                print(f"*********************{sys_id}")
                 try:
                     # Wait for the result with a timeout to avoid hanging indefinitely
                     result = future.result(timeout=60)
@@ -180,8 +181,9 @@ class RESTAPIClient:
 
 # Initialize client
 client = RESTAPIClient(
-    base_url="https://api.example.com/api/records",
-    username="admin",
+    # base_url="https://api.example.com/api/records",
+    base_url="http://localhost:8000/item",
+    username="Alice",
     password="secret123"
 )
 
@@ -192,7 +194,8 @@ client.session.headers.update({
 })
 
 # Call API for multiple IDs
-sys_ids = ["id1", "id2", "id3", "id4"]
+# sys_ids = ["id1", "id2", "id3", "id4"]
+sys_ids = [4, 6, 7, 8, 9, 2]
 results = client.call_api_for_multiple_ids(sys_ids)
 
 # Process results
