@@ -30,10 +30,10 @@ def find_next_square(sq):
 
 # Test cases
 result1 = find_next_square(121)
-print(result1)  # Should print 144
+print(f"result1 121: {result1}")  # Should print 144
 
 result2 = find_next_square(625)
-print(result2)  # Should print 676
+print(f"result2 625: {result2}")  # Should print 676
 
 result3 = find_next_square(114)
-print(result3)  # Should print -1
+print(f"result3 114: {result3}")  # Should print -1

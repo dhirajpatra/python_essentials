@@ -12,3 +12,8 @@ with open("test.txt", "r") as file:
 	line = file.readline()
 	print(line)
 
+# # read an image file in binary mode
+# with open("path of the image file", "rb") as file:
+# 	data = file.read()
+# 	print(data)
+
