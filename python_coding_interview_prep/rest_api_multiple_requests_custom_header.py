@@ -1,8 +1,8 @@
-from api_client import RESTAPIClient
 import requests
 import json
 import logging
 from typing import List, Dict, Any, Optional
+# This import is necessary for handling parallel execution of API calls
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import time
 
@@ -32,7 +32,9 @@ class RESTAPIClient:
         self.base_url = base_url.rstrip('/')
         self.username = username
         self.password = password
+        # Use a session to persist settings across requests
         self.session = requests.Session()
+        # Set authentication for the session
         self.session.auth = (username, password)
         self.session.headers.update({
             'Content-Type': 'application/json',
@@ -62,7 +64,7 @@ class RESTAPIClient:
             # Construct the full URL with the system ID
             url = f"{self.base_url}/{sys_id}"
             
-            # Make the API call
+            # Make the API call with a timeout
             response = self.session.get(url, timeout=30)
             result['status_code'] = response.status_code
             
@@ -108,18 +110,21 @@ class RESTAPIClient:
         failed_ids = []
         
         logger.info(f"Starting API calls for {len(sys_ids)} system IDs")
-        
+
+        # Use ThreadPoolExecutor to handle parallel API calls
+        # keep max_workers to a reasonable number below the number of available CPU cores to avoid overwhelming the server
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             # Submit all tasks
             future_to_sys_id = {
-                executor.submit(self.call_api_for_single_id, sys_id): sys_id 
-                for sys_id in sys_ids
+                # It will submit the call_api_for_single_id function for each sys_id in sys_ids
+                executor.submit(self.call_api_for_single_id, sys_id): sys_id for sys_id in sys_ids
             }
             
             # Process completed tasks
             for future in as_completed(future_to_sys_id):
                 sys_id = future_to_sys_id[future]
                 try:
+                    # Wait for the result with a timeout to avoid hanging indefinitely
                     result = future.result(timeout=60)
                     results.append(result)
                     
@@ -150,6 +155,8 @@ class RESTAPIClient:
     def call_api_sequential(self, sys_ids: List[str]) -> List[Dict[str, Any]]:
         """
         Call the API for multiple system IDs sequentially.
+        This is alternative to the parallel approach
+        and can be useful for debugging or when the API has strict rate limits.
         
         Args:
             sys_ids: List of system IDs to query

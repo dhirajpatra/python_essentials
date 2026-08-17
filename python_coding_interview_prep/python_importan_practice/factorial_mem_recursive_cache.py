@@ -1,5 +1,6 @@
 from functools import lru_cache
 
+# Factorial function with memoization using functools.lru_cache
 @lru_cache(maxsize=None)
 def factorial_memoized(n):
     """

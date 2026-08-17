@@ -119,3 +119,57 @@ print(new_dict)
 
 # merging two dict
 d1.update(d2)
+
+# dictionary comprehension
+d1 = {x: x**2 for x in (2, 3, 4)}
+print(d1)
+# {2: 4, 3: 9, 4: 16}
+
+# swapping keys and values in a dictionary
+d = {'a': 1, 'b': 2, 'c': 3}
+d = {v: k for k, v in d.items()}
+print(d)
+# {1: 'a', 2: 'b', 3: 'c'}
+
+# dictionary with zip function
+keys = ['a', 'b', 'c']
+values = [1, 2, 3]
+d = dict(zip(keys, values))
+print(d)
+# {'a': 1, 'b': 2, 'c': 3}
+
+# unpacking dictionary into two lists
+d = {'a': 1, 'b': 2, 'c': 3}
+keys, vals = [list(x) for x in zip(*d.items())]
+print(f"keys: {keys}, vals: {vals}")
+# keys: ['a', 'b', 'c'], vals: [1, 2, 3]
+
+# sorting a dictionary by value
+d = {'a': 3, 'b': 1, 'c': 2}
+sorted_d = dict(sorted(d.items(), key=lambda item: item[1]))
+print(sorted_d)
+# {'b': 1, 'c': 2, 'a': 3}
+
+# sorting a dictionary by key
+d = {'a': 3, 'b': 1, 'c': 2}
+sorted_d = dict(sorted(d.items(), key=lambda item: item[0]))
+print(sorted_d)
+# {'a': 3, 'b': 1, 'c': 2}
+
+# sorting a dictionary by value in descending order
+d = {'a': 3, 'b': 1, 'c': 2}
+sorted_d = dict(sorted(d.items(), key=lambda item: item[1], reverse=True))
+print(sorted_d)
+# {'a': 3, 'c': 2, 'b': 1}
+
+people = [
+    {'name': 'John', 'age': 25},
+    {'name': 'Jane', 'age': 30},
+    {'name': 'Dave', 'age': 20}
+]
+sorted_people = sorted(people, key=operator.itemgetter('age'))
+print(sorted_people)
+# [{'name': 'Dave', 'age': 20}, {'name': 'John', 'age': 25}, {'name': 'Jane', 'age': 30}]
+
+
+

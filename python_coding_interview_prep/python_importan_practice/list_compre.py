@@ -59,3 +59,10 @@ print(flattened)
 
 # first 10 prime numbers
 [n for n in range(1,25) if all(n%x!=0 for x in [2,3,5,7] if n not in [2,3,5,7])]
+
+# simple but special list comprehension examples
+squares = [x**2 for x in range(10)]
+evens = [x for x in squares if x % 2 == 0]
+pairs = [(x, y) for x in range(3) for y in range(3)]
+flattened = [x for sublist in [[1, 2], [3, 4], [5]] for x in sublist]
+
