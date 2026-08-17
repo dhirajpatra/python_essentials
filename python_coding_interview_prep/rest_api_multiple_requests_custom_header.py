@@ -114,14 +114,18 @@ class RESTAPIClient:
         # Use ThreadPoolExecutor to handle parallel API calls
         # keep max_workers to a reasonable number below the number of available CPU cores to avoid overwhelming the server
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
-            # Submit all tasks
+            # Submit all tasks. Builds a dictionary mapping each background Future object back to its original sys_id.
+            # This keeps track of which result belongs to which ID
             future_to_sys_id = {
                 # It will submit the call_api_for_single_id function for each sys_id in sys_ids
                 executor.submit(self.call_api_for_single_id, sys_id): sys_id for sys_id in sys_ids
             }
             
             # Process completed tasks
+            # Watches the tasks and yields each Future the moment its API call finishes.
+            # It does not wait in order; it yields fast tasks first.
             for future in as_completed(future_to_sys_id):
+                # Get the system ID associated with the completed future task
                 sys_id = future_to_sys_id[future]
                 try:
                     # Wait for the result with a timeout to avoid hanging indefinitely

@@ -52,17 +52,17 @@ name_for_userid = {
     951: "Dilbert",
 }
 
-dict = {}
-dict['1'] = 'apple'
-dict['3'] = 'orange'
-dict['2'] = 'pango'
+sample_dict = {}
+sample_dict['1'] = 'apple'
+sample_dict['3'] = 'orange'
+sample_dict['2'] = 'pango'
 
-lst = dict.keys()
+lst = sample_dict.keys()
 
 # Sorted by key
 print("Sorted by key: ", sorted(lst))
 
-lst = dict.values()
+lst = sample_dict.values()
 
 # sorted by values
 print("Sorted by values: ", sorted(lst))
