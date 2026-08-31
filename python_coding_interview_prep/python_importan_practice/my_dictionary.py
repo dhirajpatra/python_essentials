@@ -177,5 +177,27 @@ counter = Counter(my_list)
 print(counter)
 # Counter({'apple': 3, 'banana': 2, 'orange': 1})
 
+# frequency of numbers in a list
+numbers = [50,40, 50, 30, 40, 50, 30, 30, 10, 10]
+result = dict(map(lambda l: (l, numbers.count(l)), numbers))
+print(result)
+n = len(result)
+max_frequency = max(result.values())
+print(max_frequency)
 
+# dynamic programming approach to create buckets for each frequency
+buckets = [[] for _ in range(n + 1)]
+# Fill the buckets with data!
+for num, count in result.items():
+    buckets[count].append(num)
+print(buckets)
+
+for i in range(len(buckets) - 1, -1, -1):
+    if buckets[i]:
+        print(f"Appeared {i} times: {buckets[i]}")
+# Remember, in this algorithm, the index number equals the frequency count.
+# Here is the exact reason why each of those three indices is empty:
+# Index 0 is empty because a number cannot appear 0 times if it exists in your list.
+# Index 1 is empty because no number in your input list appeared exactly 1 time. Every number appeared either 2 or 3 times.
+# Index 4 is empty because no number in your input list appeared 4 times.
 
