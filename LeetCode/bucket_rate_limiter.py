@@ -13,15 +13,15 @@ class TokenBucketRateLimiter:
         self.capacity = max_rps
         self.tokens = max_rps
         self.last_update = time.monotonic()
-        # This lock ensures thread-safe operations when multiple threads try to acquire tokens simultaneously
-        self.lock = threading.Lock()
+        # This _lock ensures thread-safe operations when multiple threads try to acquire tokens simultaneously
+        self._lock = threading.Lock()
 
     def acquire(self):
         """
         Acquire a token from the bucket.
         If no token is available, block until one is.
         """
-        with self.lock:
+        with self._lock:
             now = time.monotonic()
             # Time elapsed since last update
             elapsed = now - self.last_update
