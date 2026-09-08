@@ -30,7 +30,8 @@ class DeveloperPolicyGatekeeper:
         self.mandatory_headers = mandatory_headers or ["X-Correlation-ID", "X-Client-ID"]
         self.max_payload_bytes = max_payload_bytes
 
-    def evaluate_contract(self, current_schema: Dict[str, Any], proposed_schema: Dict[str, Any]) -> Tuple[bool, List[str]]:
+    def evaluate_contract(self, current_schema: Dict[str, Any], proposed_schema: Dict[str, Any]) \
+            -> Tuple[bool, List[str]]:
         """
         Evaluates a proposed API schema against safety rules and backward compatibility.
         Returns: (is_compliant: bool, violations: List[str])

@@ -34,7 +34,7 @@ class ServiceChassisResilience:
         self.state = "CLOSED"
         self.last_state_change = time.time()
 
-    def circuit_breaker(self, fallback_function: Callable = None):
+    def circuit_breaker(self, fallback_function: Callable = Any):
         """
         Reusable decorator for developer endpoints.
         """
