@@ -1,5 +1,6 @@
 """
-Write a simple fixed sliding chunk function split_chunk. It will take the parameter text, chunk_size=500, overlap=50 for document slicing suitable for RAG ingestion.
+Write a simple fixed sliding chunk function split_chunk.
+It will take the parameter text, chunk_size=500, overlap=50 for document slicing suitable for RAG ingestion.
 """
 from typing import List
 

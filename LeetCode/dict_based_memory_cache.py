@@ -1,5 +1,6 @@
 """
-implement a dictionary based in memory cache. Directly return cached results for the same question, reducing repeated calls to LLM.
+implement a dictionary based in memory cache.
+Directly return cached results for the same question, reducing repeated calls to LLM.
 """
 import time
 import threading
@@ -14,10 +15,20 @@ class InMemoryCache:
         self._lock = threading.Lock()
 
     def _normalize_key(self, question: str) -> str:
+        """
+        Normalize the question key (e.g., strip whitespace, lowercase)
+        """
         return question.strip().lower()
 
     def get(self, question: str) -> Optional[Any]:
+        """
+        Retrieve an item from the cache if it exists and hasn't expired.
+        """
+        if not question:
+            return None
         key = self._normalize_key(question)
+        print(f"Cache lookup for key: {key}")
+
         with self._lock:
             if key not in self._cache:
                 return None
@@ -32,6 +43,12 @@ class InMemoryCache:
             return response
 
     def set(self, question: str, response: Any) -> None:
+        """
+        Store an item in the cache.
+        """
+        if not question:
+            return
+
         key = self._normalize_key(question)
         with self._lock:
             # Simple FIFO/LRU eviction when reaching capacity limit
@@ -42,7 +59,7 @@ class InMemoryCache:
             self._cache[key] = (response, time.time())
 
 
-def query_llm_with_cache(question: str, cache: InMemoryCache) -> str:
+def query_llm_with_cache(question: str, cache: InMemoryCache) -> str|None|Any:
     # 1. Check cache first
     cached_response = cache.get(question)
     if cached_response is not None:
