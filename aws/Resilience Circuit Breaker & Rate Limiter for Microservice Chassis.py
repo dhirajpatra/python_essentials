@@ -1,4 +1,38 @@
 """
+Think of a circuit breaker like an automatic safety switch for your service calls:
+it watches for failures, and if too many happen, it “trips” to stop more requests from making things worse.
+
+## The three states (beginner-friendly)
+
+- **CLOSED (normal mode)**
+  - Everything is working as expected.
+  - Requests go through to the downstream service (e.g., payment API, database, another microservice).
+  - The breaker quietly counts recent failures.
+
+- **OPEN (tripped / protective mode)**
+  - Too many failures happened in a short time, so the breaker “trips”.
+  - It **rejects new requests immediately** without even calling the failing service.
+  - This protects your system from:
+    - Wasting time waiting on timeouts
+    - Overloading an already-failing dependency
+    - Cascading failures across your architecture
+
+- **HALF-OPEN (testing recovery)**
+  - After a configured wait time (`recovery_time_sec` or similar), the breaker moves to HALF-OPEN.
+  - It allows **a small number of test requests** through to see if the downstream service has recovered.
+  - Outcomes:
+    - If test requests **succeed** → breaker assumes recovery and goes back to **CLOSED**.
+    - If test requests **fail** → breaker goes back to **OPEN** and waits again.
+
+## Simple mental model
+
+- **CLOSED** = “All good, keep calling.”
+- **OPEN** = “Something’s broken; stop calling and fail fast.”
+- **HALF-OPEN** = “Maybe it’s fixed; let’s try a few calls carefully.”
+
+This pattern is widely used in microservices and cloud architectures (including on AWS) to make systems more resilient
+to failures and latency spikes, especially when dependencies are unreliable. 
+
 When transforming developer teams from monolithic applications to microservices,
 teams often implement ad-hoc retry loops that cause cascading database failures under load.
 
@@ -6,9 +40,9 @@ Build a reusable Circuit Breaker and Token Bucket Rate Limiter module in Python
 that developers can apply as a decorator to their microservice endpoints to handle
 external service degradation gracefully.
 """
-import time
 import functools
 import logging
+import time
 from typing import Callable, Any
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -34,7 +68,7 @@ class ServiceChassisResilience:
         self.state = "CLOSED"
         self.last_state_change = time.time()
 
-    def circuit_breaker(self, fallback_function: Callable = Any):
+    def circuit_breaker(self, fallback_function: Callable = Any) -> Callable[[Any], Any]:
         """
         Reusable decorator for developer endpoints.
         """
@@ -86,7 +120,7 @@ class ServiceChassisResilience:
 # ==========================================
 # VERIFICATION & TEST HARNESS
 # ==========================================
-def CachedFallbackResponse(*args, **kwargs):
+def CachedFallbackResponse(*args, **kwargs) -> dict:
     return {"status": "degraded", "data": "Serving cached static response.", "from_cache": True}
 
 
