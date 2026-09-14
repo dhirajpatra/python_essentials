@@ -30,8 +30,8 @@ it watches for failures, and if too many happen, it “trips” to stop more req
 - **OPEN** = “Something’s broken; stop calling and fail fast.”
 - **HALF-OPEN** = “Maybe it’s fixed; let’s try a few calls carefully.”
 
-This pattern is widely used in microservices and cloud architectures (including on AWS) to make systems more resilient
-to failures and latency spikes, especially when dependencies are unreliable. 
+This pattern is widely used in microservices and cloud architectures (including on AWS)
+to make systems more resilient to failures and latency spikes, especially when dependencies are unreliable.
 
 When transforming developer teams from monolithic applications to microservices,
 teams often implement ad-hoc retry loops that cause cascading database failures under load.
