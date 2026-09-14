@@ -1,5 +1,7 @@
 """
-Imagine you are building a component for a resilient telemetry collection service (like your FTC Solar or Arlo pipeline). You are given a stream of JSON payloads containing IoT edge telemetry. Each payload has a device_id, a timestamp, a metric_name, and a numeric_value.
+Imagine you are building a component for a resilient telemetry collection service eg. video streaming.
+You are given a stream of JSON payloads containing IoT edge telemetry.
+Each payload has a device_id, a timestamp, a metric_name, and a numeric_value.
 
 Write a Python class or module that:
 
@@ -9,13 +11,14 @@ Processes valid metrics by calculating a moving window/batch average per device.
 
 Implements an idempotent write mechanism that simulates publishing processed data to a downstream storage endpoint.
 
-Handles poison/malformed messages cleanly using a Dead Letter Queue (DLQ) pattern without crashing the application process.
+Handles poison/malformed messages cleanly using a Dead Letter Queue (DLQ) pattern
+and ensures the system continues running without crashing the application process.
 """
-import logging
 import json
+import logging
 import time
-from typing import Dict, List, Any, Tuple
 from collections import defaultdict
+from typing import Dict, List, Any, Tuple
 
 # Configure structured logging for observability (Insist on Highest Standards)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -24,21 +27,31 @@ logger = logging.getLogger("TelemetryProcessor")
 
 class InvalidPayloadException(Exception):
     """Custom exception for schema validation failures."""
-    pass
+
+    def __init__(self, field_name: str, received_value: Any, expected_type: type):
+        self.field_name = field_name
+        self.received_value = received_value
+        self.expected_type = expected_type
+        super().__init__(
+            f"Invalid payload for field '{field_name}': "
+            f"expected {expected_type.__name__}, got {type(received_value).__name__} = {received_value!r}"
+        )
 
 
 class ResilientTelemetryProcessor:
-    def __init__(self, batch_threshold: int = 5):
+    def __init__(self, batch_threshold: int = 5, max_retries: int = 3):
         """
         Initialize the processor with in-memory batch buffers and deduplication tracking.
         """
         self.batch_threshold = batch_threshold
+        self.max_retries = max_retries
         # Buffer structure: {device_id: {metric_name: [list of float values]}}
-        self.buffer: Dict[str, Dict[str, List[float]]] = defaultdict(lambda: defaultdict(list))
+        self.buffer: Dict[str, Dict[str, List[float]]] = \
+            defaultdict(lambda: defaultdict(list))
         # Deduplication cache for idempotency: set of message hashes or (device_id, timestamp) tuples
         self.processed_message_ids: set = set()
-        # Simulated Dead Letter Queue (DLQ)
-        self.dlq: List[Tuple[Dict[str, Any], str]] = []
+        # Simulated Dead Letter Queue (DLQ): stores (entry_dict, reason, retry_count)
+        self.dlq: List[Tuple[Dict[str, Any], str, int]] = []
 
     def _validate_schema(self, payload: Dict[str, Any]) -> None:
         """
@@ -53,11 +66,11 @@ class ResilientTelemetryProcessor:
 
         for field, expected_type in required_fields.items():
             if field not in payload:
-                raise InvalidPayloadException(f"Missing required field: '{field}'")
+                raise InvalidPayloadException(field, None, str)
             if not isinstance(payload[field], expected_type):
-                raise InvalidPayloadException(
-                    f"Field '{field}' has invalid type '{type(payload[field]).__name__}'. Expected '{expected_type}'."
-                )
+                # Handle tuple of acceptable types (e.g., int or float)
+                primary_type = expected_type[0] if isinstance(expected_type, tuple) else expected_type
+                raise InvalidPayloadException(field, payload[field], primary_type)
 
     def _generate_dedup_key(self, payload: Dict[str, Any]) -> str:
         """
@@ -88,6 +101,7 @@ class ResilientTelemetryProcessor:
             metric_name = payload["metric_name"]
             value = float(payload["numeric_value"])
 
+            # Buffer the value for each device/metric combination
             self.buffer[device_id][metric_name].append(value)
             self.processed_message_ids.add(dedup_key)
             logger.info(
@@ -138,20 +152,61 @@ class ResilientTelemetryProcessor:
         """
         logger.info(f"[DOWNSTREAM WRITE SUCCESS] Published aggregate: {json.dumps(summary_payload)}")
 
-    def _send_to_dlq(self, raw_message: str, reason: str) -> None:
+    def _send_to_dlq(self, raw_message: str, reason: str, retry_count: int = 0) -> None:
         """
         Routes unprocessable/poison payloads to Dead Letter Queue for auditing.
         """
-        dlq_entry = {"raw_payload": raw_message, "failure_reason": reason, "timestamp": time.time()}
-        self.dlq.append((dlq_entry, reason))
-        logger.info(f"[DLQ ENQUEUE] Message isolated. Total DLQ Depth: {len(self.dlq)}")
+        dlq_entry = {
+            "raw_payload": raw_message,
+            "failure_reason": reason,
+            "retry_count": retry_count,
+            "timestamp": time.time()
+        }
+        # It will add an tuple for unique message in DLQ
+        self.dlq.append((dlq_entry, reason, retry_count))
+        logger.info(f"[DLQ ENQUEUE] Message isolated (retry={retry_count}). Total DLQ Depth: {len(self.dlq)}")
+
+    def replay_dlq(self) -> Dict[str, int]:
+        """
+        Replays all DLQ messages up to max_retries.
+        Returns a summary of replayed, recovered, and permanently failed counts.
+        """
+        if not self.dlq:
+            logger.info("[DLQ REPLAY] DLQ is empty. Nothing to replay.")
+            return {"replayed": 0, "recovered": 0, "permanently_failed": 0}
+
+        remaining, recovered, permanently_failed = [], 0, 0
+        logger.info(f"[DLQ REPLAY] Starting replay for {len(self.dlq)} message(s)...")
+
+        for entry, reason, retry_count in self.dlq:
+            if retry_count >= self.max_retries:
+                logger.error(f"[DLQ REPLAY] Permanently failed after {retry_count} retries. Reason: {reason}")
+                permanently_failed += 1
+                continue
+
+            raw_message = entry["raw_payload"]
+            logger.info(f"[DLQ REPLAY] Retrying message (attempt {retry_count + 1}/{self.max_retries})...")
+            success = self.process_incoming_message(raw_message)
+
+            if success:
+                # Counter for recovered messages
+                recovered += 1
+                logger.info("[DLQ REPLAY] Message recovered successfully.")
+            else:
+                remaining.append((entry, reason, retry_count + 1))
+
+        self.dlq = remaining
+        summary = {"replayed": len(self.dlq) + recovered + permanently_failed, "recovered": recovered,
+                   "permanently_failed": permanently_failed}
+        logger.info(f"[DLQ REPLAY] Complete. Summary: {summary}")
+        return summary
 
 
 # ==========================================
 # VERIFICATION & TEST HARNESS
 # ==========================================
 if __name__ == "__main__":
-    processor = ResilientTelemetryProcessor(batch_threshold=3)
+    processor = ResilientTelemetryProcessor(batch_threshold=3, max_retries=3)
 
     # 1. Valid Stream Inputs
     valid_msg_1 = json.dumps(
@@ -184,3 +239,8 @@ if __name__ == "__main__":
 
     print(f"\nFinal State Verification:")
     print(f"DLQ Depth: {len(processor.dlq)} (Expected: 2)")
+
+    print("\n--- REPLAYING DLQ ---")
+    summary = processor.replay_dlq()
+    print(f"Replay Summary: {summary}")
+    print(f"Remaining DLQ Depth: {len(processor.dlq)}")

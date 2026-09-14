@@ -70,6 +70,19 @@ class CircuitBreakerOpenException(Exception):
         )
 
 
+class InvalidPayloadException(Exception):
+    """Raised when the function receives an invalid or unexpected payload."""
+
+    def __init__(self, field_name: str, received_value: Any, expected_type: type):
+        self.field_name = field_name
+        self.received_value = received_value
+        self.expected_type = expected_type
+        super().__init__(
+            f"Invalid payload for field '{field_name}': "
+            f"expected {expected_type.__name__}, got {type(received_value).__name__} = {received_value!r}"
+        )
+
+
 class ServiceChassisResilience:
     def __init__(self, service_name: str = "downstream", failure_threshold: int = 3, recovery_time_sec: float = 5.0):
         """
@@ -115,6 +128,15 @@ class ServiceChassisResilience:
                         raise exc
 
                 try:
+                    # Validate all annotated arguments before calling
+                    hints = func.__annotations__
+                    all_args = {**dict(zip(func.__code__.co_varnames, args)), **kwargs}
+                    for field, expected in hints.items():
+                        if field == "return" or field not in all_args:
+                            continue
+                        if not isinstance(all_args[field], expected):
+                            raise InvalidPayloadException(field, all_args[field], expected)
+
                     result = func(*args, **kwargs)
 
                     # Success path: Reset on successful invocation
@@ -176,6 +198,15 @@ def unstable_downstream_service(should_fail: bool):
 if __name__ == "__main__":
     print("\n--- 1. SUCCESSFUL INVOCATION ---")
     print(unstable_downstream_service(should_fail=False))
+
+    print("\n--- 1b. INVALID PAYLOAD ---")
+    try:
+        print(unstable_downstream_service(should_fail="yes"))  # wrong type: str instead of bool
+    except InvalidPayloadException as e:
+        print(f"Caught: {e}")
+        print(f"  → field    : {e.field_name}")
+        print(f"  → received : {e.received_value!r} ({type(e.received_value).__name__})")
+        print(f"  → expected : {e.expected_type.__name__}")
 
     print("\n--- 2. ENCOUNTERING DOWNSTREAM FAILURES ---")
     print(unstable_downstream_service(should_fail=True))  # Failure 1

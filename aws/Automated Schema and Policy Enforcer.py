@@ -19,7 +19,15 @@ logger = logging.getLogger("DevXPolicyEnforcer")
 
 class PolicyViolationException(Exception):
     """Custom exception for Developer Transformation gate failures."""
-    pass
+
+    def __init__(self, field_name: str, old_type: str, new_type: str):
+        self.field_name = field_name
+        self.old_type = old_type
+        self.new_type = new_type
+        super().__init__(
+            f"Invalid payload for field '{field_name}': "
+            f"expected {old_type}, got {new_type}"
+        )
 
 
 class DeveloperPolicyGatekeeper:
@@ -49,7 +57,8 @@ class DeveloperPolicyGatekeeper:
         serialized_size = len(json.dumps(payload_body).encode('utf-8'))
         if serialized_size > self.max_payload_bytes:
             violations.append(
-                f"PAYLOAD_TOO_LARGE: Schema body size ({serialized_size} bytes) exceeds limit ({self.max_payload_bytes} bytes)."
+                f"PAYLOAD_TOO_LARGE: Schema body size ({serialized_size} bytes) "
+                f"exceeds limit ({self.max_payload_bytes} bytes)."
             )
 
         # Rule 3: Backward Compatibility Check (Prevent breaking removal of fields)
@@ -59,6 +68,7 @@ class DeveloperPolicyGatekeeper:
         for field_name, field_meta in current_fields.items():
             if field_name not in proposed_fields:
                 violations.append(f"BREAKING_CHANGE: Field '{field_name}' was removed from the request schema.")
+                raise PolicyViolationException(field_meta, field_meta.get("type"), "REMOVED")
             else:
                 # Check for type mutation (e.g., string -> integer)
                 old_type = field_meta.get("type")
@@ -67,6 +77,8 @@ class DeveloperPolicyGatekeeper:
                     violations.append(
                         f"TYPE_MUTATION: Field '{field_name}' type changed from '{old_type}' to '{new_type}'."
                     )
+                if violations:
+                    raise PolicyViolationException(field_name, old_type, new_type)
 
         is_compliant = len(violations) == 0
         return is_compliant, violations
