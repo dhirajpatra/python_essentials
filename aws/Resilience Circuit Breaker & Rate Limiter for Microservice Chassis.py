@@ -106,12 +106,13 @@ class ServiceChassisResilience:
                         logger.info("⚡ [CIRCUIT HALF-OPEN] Testing downstream service health...")
                     else:
                         logger.warning("🚨 [CIRCUIT OPEN] Request blocked immediately to prevent cascading overload.")
-                        if fallback_function:
-                            return fallback_function(*args, **kwargs)
-                        raise CircuitBreakerOpenException(
+                        exc = CircuitBreakerOpenException(
                             self.service_name, self.last_state_change,
                             self.recovery_time_sec, self.failure_count
                         )
+                        if fallback_function:
+                            return fallback_function(*args, exception=exc, **kwargs)
+                        raise exc
 
                 try:
                     result = func(*args, **kwargs)
@@ -132,7 +133,7 @@ class ServiceChassisResilience:
                         logger.critical(f"🔥 [CIRCUIT TRIPPED to OPEN] Failure threshold reached.")
 
                     if fallback_function:
-                        return fallback_function(*args, **kwargs)
+                        return fallback_function(*args, exception=e, **kwargs)
                     raise e
 
             return wrapper
@@ -143,8 +144,22 @@ class ServiceChassisResilience:
 # ==========================================
 # VERIFICATION & TEST HARNESS
 # ==========================================
-def CachedFallbackResponse(*args, **kwargs) -> dict:
-    return {"status": "degraded", "data": "Serving cached static response.", "from_cache": True}
+def CachedFallbackResponse(*args, exception: Exception = None, **kwargs) -> dict:
+    if isinstance(exception, CircuitBreakerOpenException):
+        return {
+            "status": "degraded",
+            "data": "Serving cached static response.",
+            "from_cache": True,
+            "service": exception.service_name,
+            "failures": exception.failure_count,
+            "retry_after_sec": exception.retry_after_sec,
+        }
+    return {
+        "status": "error",
+        "data": "Serving cached static response.",
+        "from_cache": True,
+        "reason": str(exception) if exception else "Unknown error",
+    }
 
 
 # Instantiate shared resilience Chassis component
@@ -167,7 +182,13 @@ if __name__ == "__main__":
     print(unstable_downstream_service(should_fail=True))  # Failure 2 -> Trips Circuit to OPEN!
 
     print("\n--- 3. CALLING WHILE CIRCUIT IS OPEN (Instant Fallback) ---")
-    print(unstable_downstream_service(should_fail=False))  # Blocked automatically without touching DB!
+    try:
+        print(unstable_downstream_service(should_fail=False))  # Blocked automatically without touching DB!
+    except CircuitBreakerOpenException as e:
+        print(f"Caught: {e}")
+        print(f"  → service     : {e.service_name}")
+        print(f"  → failures    : {e.failure_count}")
+        print(f"  → retry after : {e.retry_after_sec}s")
 
     print("\n--- 4. WAITING FOR RECOVERY WINDOW (3 Sec) ---")
     time.sleep(3.2)
