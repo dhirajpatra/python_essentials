@@ -77,6 +77,9 @@ class ServiceChassisResilience:
     def circuit_breaker(self, fallback_function: Callable = Any) -> Callable[[Any], Any]:
         """
         Reusable decorator for developer endpoints.
+        circuit_breaker(fallback_function)  ← accepts a fallback
+        └── decorator(func)                 ← wraps your actual function
+            └── wrapper(*args)              ← runs on every call
         """
 
         def decorator(func: Callable):
