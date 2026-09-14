@@ -57,22 +57,33 @@ logger = logging.getLogger("ChassisResilience")
 
 class CircuitBreakerOpenException(Exception):
     """Raised when the circuit breaker is in OPEN state."""
-    pass
+
+    def __init__(self, service_name: str, tripped_at: float, recovery_time_sec: float, failure_count: int):
+        self.service_name = service_name
+        self.tripped_at = tripped_at
+        self.recovery_time_sec = recovery_time_sec
+        self.failure_count = failure_count
+        self.retry_after_sec = max(0.0, round(recovery_time_sec - (time.time() - tripped_at), 2))
+        super().__init__(
+            f"[{service_name}] Circuit OPEN — {failure_count} failures. "
+            f"Retry after {self.retry_after_sec}s."
+        )
 
 
 class ServiceChassisResilience:
-    def __init__(self, failure_threshold: int = 3, recovery_time_sec: float = 5.0):
+    def __init__(self, service_name: str = "downstream", failure_threshold: int = 3, recovery_time_sec: float = 5.0):
         """
         Circuit Breaker States:
         - CLOSED: Normal operation.
         - OPEN: Tripped due to failures; rejects requests immediately.
         - HALF-OPEN: Testing downstream recovery after recovery_time_sec.
         """
-        self.failure_threshold = failure_threshold  # How many failures before tripping to OPEN
-        self.recovery_time_sec = recovery_time_sec  # How long to stay OPEN before trying HALF-OPEN
-        self.failure_count = 0  # Running count of consecutive failures
+        self.service_name = service_name
+        self.failure_threshold = failure_threshold
+        self.recovery_time_sec = recovery_time_sec
+        self.failure_count = 0
         self.state = "CLOSED"
-        self.last_state_change = time.time()  # Timestamp used to measure recovery window
+        self.last_state_change = time.time()
 
     def circuit_breaker(self, fallback_function: Callable = Any) -> Callable[[Any], Any]:
         """
@@ -97,7 +108,10 @@ class ServiceChassisResilience:
                         logger.warning("🚨 [CIRCUIT OPEN] Request blocked immediately to prevent cascading overload.")
                         if fallback_function:
                             return fallback_function(*args, **kwargs)
-                        raise CircuitBreakerOpenException("Service downstream is unavailable.")
+                        raise CircuitBreakerOpenException(
+                            self.service_name, self.last_state_change,
+                            self.recovery_time_sec, self.failure_count
+                        )
 
                 try:
                     result = func(*args, **kwargs)
@@ -134,7 +148,7 @@ def CachedFallbackResponse(*args, **kwargs) -> dict:
 
 
 # Instantiate shared resilience Chassis component
-resilience_guard = ServiceChassisResilience(failure_threshold=2, recovery_time_sec=3.0)
+resilience_guard = ServiceChassisResilience(service_name="payment-db", failure_threshold=2, recovery_time_sec=3.0)
 
 
 @resilience_guard.circuit_breaker(fallback_function=CachedFallbackResponse)
