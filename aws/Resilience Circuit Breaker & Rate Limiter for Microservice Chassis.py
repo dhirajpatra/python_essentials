@@ -30,6 +30,12 @@ it watches for failures, and if too many happen, it “trips” to stop more req
 - **OPEN** = “Something’s broken; stop calling and fail fast.”
 - **HALF-OPEN** = “Maybe it’s fixed; let’s try a few calls carefully.”
 
+CLOSED ──(failures >= threshold)──► OPEN
+  ▲                                   │
+  │                              (recovery_time_sec passes)
+  │                                   ▼
+  └────(test call succeeds)────── HALF-OPEN
+
 This pattern is widely used in microservices and cloud architectures (including on AWS)
 to make systems more resilient to failures and latency spikes, especially when dependencies are unreliable.
 
@@ -62,11 +68,11 @@ class ServiceChassisResilience:
         - OPEN: Tripped due to failures; rejects requests immediately.
         - HALF-OPEN: Testing downstream recovery after recovery_time_sec.
         """
-        self.failure_threshold = failure_threshold
-        self.recovery_time_sec = recovery_time_sec
-        self.failure_count = 0
+        self.failure_threshold = failure_threshold  # How many failures before tripping to OPEN
+        self.recovery_time_sec = recovery_time_sec  # How long to stay OPEN before trying HALF-OPEN
+        self.failure_count = 0  # Running count of consecutive failures
         self.state = "CLOSED"
-        self.last_state_change = time.time()
+        self.last_state_change = time.time()  # Timestamp used to measure recovery window
 
     def circuit_breaker(self, fallback_function: Callable = Any) -> Callable[[Any], Any]:
         """
