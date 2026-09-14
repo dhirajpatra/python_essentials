@@ -9,7 +9,9 @@ Design a data structure that follows the constraints of a Least Recently Used (L
 Implement the LRUCache class:
 LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
 int get(int key) Return the value of the key if the key exists, otherwise return -1.
-void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
+void put(int key, int value) Update the value of the key if the key exists. Otherwise,
+add the key-value pair to the cache.
+If the number of keys exceeds the capacity from this operation, evict the least recently used key.
 
 The functions get and put must each run in O(1) average time complexity.
 
@@ -20,6 +22,8 @@ Input:
 Output:
 [null, null, null, 1, null, -1, null, -1, 3, 4]
 """
+
+
 # Define a Node class for the Doubly Linked List
 class Node:
     def __init__(self, key, val):
@@ -119,13 +123,14 @@ class LRUCache:
         node.next = next_node
         next_node.prev = node
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     # Example usage of the LRUCache
     lru_cache = LRUCache(2)
     lru_cache.put(1, 1)  # Cache is {1=1}
     lru_cache.put(2, 2)  # Cache is {1=1, 2=2}
     print(lru_cache.get(1))  # Returns 1, Cache is {2=2, 1=1}
-    lru_cache.put(3, 3)      # Evicts key 2, Cache is {1=1, 3=3}
+    lru_cache.put(3, 3)  # Evicts key 2, Cache is {1=1, 3=3}
     print(lru_cache.get(2))  # Returns -1, as key 2 was evicted
 
     print(lru_cache.get(2))  # returns -1 (not found)

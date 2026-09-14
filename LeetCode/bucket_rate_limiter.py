@@ -2,9 +2,9 @@
 Write Python code for simple rate limiting.
 Batch text calls to avoid overly large one-time request causing API errors.
 """
-import time
 import threading
-from typing import List, Generator, Any
+import time
+from typing import List, Generator
 
 
 class TokenBucketRateLimiter:
@@ -53,11 +53,18 @@ def api_call(batch: List[str]) -> List[dict]:
 
 
 if __name__ == "__main__":
-    loads = "this is a text sample for mmmmmmmmmmmmmmmmmmmada  dfmasdmm fadfdsm fdafdmafas fadsfdsfmdasf fadsfadsm"
+    loads = [
+        f"text_{i}" for i in range(100)
+    ]
     token_bucket_rate_limiter = TokenBucketRateLimiter(max_rps=2.0)
     print(f"{time.strftime('%H:%M:%S')} Starting rate limited batching...")
     start_time = time.time()
-    for batch_num, batch in enumerate(token_bucket_rate_limiter.batch_and_rate_limit(loads, batch_size=3, max_rps=2.0), 1):
+    # Iterate over rate-limited batches; enumerate starts at 1 for human-readable batch numbering
+    for batch_num, batch in enumerate(
+            token_bucket_rate_limiter.batch_and_rate_limit(
+                loads, batch_size=3, max_rps=2.0
+            ),
+            1
+    ):
         response = api_call(batch)
         print(f"{time.strftime('%H:%M:%S')} batch {batch_num} called with {len(batch)} parts.")
-
