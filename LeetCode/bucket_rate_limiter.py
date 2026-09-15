@@ -31,6 +31,8 @@ class TokenBucketRateLimiter:
             if self.tokens < 1.0:
                 # If not enough tokens, wait until enough tokens are accumulated
                 print(f"{time.strftime('%H:%M:%S')} Rate limit hit, waiting...")
+                # This is calculating how long to sleep based on how many tokens we're missing and
+                # the rate at which tokens are added
                 sleep_time = (1.0 - self.tokens) / self.capacity
                 time.sleep(sleep_time)
                 self.tokens = 0.0
