@@ -23,11 +23,9 @@ print([x.upper() if x.islower() else x.lower() for x in s])
 # *** TASK 4 ***
 #
 # Transform following list into dict, using item as value and it's position in list as key:
-
 l = [45, 22, 14, 65, 97, 72]
-dict = {}
-map(lambda x: dict.append([x]),for i in l)
-# *** // TASK 4 END ***``
+result = {index: value for index, value in enumerate(l)}
+# *** // TASK 4 END ***
 
 
 # *** TASK 5 ***
@@ -39,7 +37,7 @@ cars = [
     {"model": "Ford Focus", "price": 12000},
 ]
 
-sorted(cars.items(), key=lambda x: x['price'], reversed=True)
+sorted(cars, key=lambda x: x['price'], reverse=True)
 
 # *** // TASK 5 END ***
 
@@ -49,6 +47,7 @@ sorted(cars.items(), key=lambda x: x['price'], reversed=True)
 # Sum squares of first 100000 integers
 
 result = reduce(lambda x, y: ((x ** x) + (y ** y)), range(1, 100000))
+
 
 # *** // TASK 6 END ***
 
@@ -100,6 +99,7 @@ def add_consonant_and_ay_at_end(word):
 
     return response
 
+
 def process_sentence(sentence):
     """
     This function processes each word in a sentence using add_consonant_and_ay_at_end.
@@ -109,6 +109,7 @@ def process_sentence(sentence):
     words = sentence.split()  # Split the sentence into words
     processed_words = [add_consonant_and_ay_at_end(word) for word in words]  # Process each word
     return ' '.join(processed_words)  # Join the processed words back into a sentence
+
 
 if __name__ == "__main__":
     # Test the function with individual words
@@ -133,4 +134,3 @@ if __name__ == "__main__":
     sentence = "a tree which has LATIN name and also it has a CAPITAL city"
     print(process_sentence(sentence))
     # Expected output: "ay eetray ichwhay ashay ATINLAY amenay andyay alsoyay ityay ashay ay APITALCAY ityay"
-
