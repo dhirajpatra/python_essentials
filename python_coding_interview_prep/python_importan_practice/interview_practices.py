@@ -1,4 +1,3 @@
-
 import os
 import time
 
@@ -30,9 +29,9 @@ def find_duplicates(elements):
         if element in seen:
             duplicates.add(element)
         seen.add(element)
-#         print('seen: {}'.format(seen))
-#         print('duplicates: {}'.format(duplicates))
-#         print('-' * 50)
+    #         print('seen: {}'.format(seen))
+    #         print('duplicates: {}'.format(duplicates))
+    #         print('-' * 50)
     return list(duplicates)
 
 
@@ -64,10 +63,8 @@ def is_anagram(s1: str, s2: str) -> bool:
 
 print(is_anagram("elvies", "lives"))
 
-
 print(max(l1))
 print(min(l1))
-
 
 # remove all duplicates
 lst = list(range(10)) + list(range(10))
@@ -85,9 +82,9 @@ def reverse(str):
 
 print(reverse("hello"))
 
-
 houses = ["Eric's house", "Kenny's house",
           "Kyle's house", "Stan's house", "Dhiraj's house"]
+
 
 # Each function call represents an elf doing his work
 
@@ -116,7 +113,7 @@ print(deliver_presents_recursively(houses))
 def find_pairs(l, x):
     pairs = []
     for (i, el1) in enumerate(l):
-        for (j, el2) in enumerate(l[(i+1):]):
+        for (j, el2) in enumerate(l[(i + 1):]):
             if el1 + el2 == x:
                 pairs.append((el1, el2))
     return pairs
@@ -142,7 +139,7 @@ def cal_fibinacci(n):
 print(cal_fibinacci(10))
 
 # one line fibonacci
-lambda x: x if x <= 1 else fib(x-1) + fib(x+1)
+lambda x: x if x <= 1 else fib(x - 1) + fib(x + 1)
 
 
 def is_palindrome(phrase):
@@ -160,7 +157,6 @@ def qsort(l):
 
 print(l1)
 print(qsort(l1))
-
 
 # as a list ...
 l = [3, 4]
@@ -193,28 +189,20 @@ def get_permutations(w):
 
 print(get_permutations("nan"))
 
-
 s1 = ['red', 'green', 'blue']
 list(map(lambda x: x[0], s1))
 
-
 list(map(lambda x, y: str(x) + y, [4, 1, 3], s1))
-
 
 ' is '.join(['this', 'good'])
 
-
 list(filter(lambda x: True if x > 10 else False, [1, 15, 9, 20]))
-
 
 print('   good '.strip())
 
-
 sorted(l1)
 
-
 sorted(l1, key=lambda x: 0 if x == 50 else x)
-
 
 # zip or groups by one of each list
 print(l1)
@@ -222,13 +210,10 @@ print(l2)
 l3 = list(zip(l1, l2))
 print(l3)
 
-
 # ungrouping
 list(zip(*l3))
 
-
 list(enumerate(s1))
-
 
 a, b = 'jane', 'alice'
 print(a)
@@ -245,17 +230,14 @@ def f(x, y, z):
 print(f(*[1, 3, 4]))
 f(**{'z': 4, 'x': 1, 'y': 3})
 
-
 a, *b = l1
 print(a)
 print(b)
-
 
 x = {'alice': 18}
 y = {'bob': 27, 'ann': 22}
 z = {**x, **y}
 print(z)
-
 
 l1 = [20, 40, 30]
 l1.append(30)
@@ -273,12 +255,10 @@ print(l1)
 l1.index(30)
 l1.index(30, 1)
 
-
 stack = [3]
 stack.append(5)
 print(stack)
 stack.pop()
-
 
 basket = {'apple', 'banana', 'mango'}
 print(basket)
@@ -286,7 +266,6 @@ same = set(['apple', 'banana', 'mango'])
 print(same)
 print('mashroom' in basket)
 print('apple' in basket)
-
 
 calories = {'apple': 50, 'banana': 80, 'chocolate': 540}
 print(calories)
@@ -296,21 +275,18 @@ print(50 in calories.values())
 for k, v in calories.items():
     print(k) if v > 500 else None
 
-
 # list comprehention
 l = [('hi ' + x) for x in ['alice', 'bob', 'zen']]
 print(l)
 l = [x * y for x in range(3) for y in range(3) if x > y]
 print(l)
-squares = {x**2 for x in [0, 2, 4] if x < 4}
+squares = {x ** 2 for x in [0, 2, 4] if x < 4}
 print(squares)
-
 
 if None or 0 or 0.0 or '' or [] or {} or set():
     print('dead')
 else:
     print('good')
-
 
 s = "the quick brown fox jumps over the lazy dog"
 print(s[1:])
@@ -323,8 +299,8 @@ print(s.replace('dog', 'wolf'))
 print(len(s))
 print('fox' in s)
 
-
 [(lambda x: x * 2)(x) for x in l1]
+
 
 # ## Iterators, Generators and Decorators
 
@@ -378,6 +354,7 @@ for i in c.counter_generator():
 def add_num(num):
     def adder(number):
         return num + number
+
     return adder
 
 
@@ -397,6 +374,7 @@ def my_decorator(func):
         result = func(*args, **kwargs)
         print("after call")
         return result
+
     return wrapper
 
 
@@ -418,7 +396,7 @@ def find_first_unique(lst):
     for ele in lst:
         # counts[ele][0] += 1  # Incrementing for every repitition
         # counts[ele][1] = order
-        counts[ele] = (counts[ele][0]+1, order)
+        counts[ele] = (counts[ele][0] + 1, order)
         # increment order
         order += 1
     answer = None
@@ -445,7 +423,7 @@ def f(*args, **kwargs):
 
 
 f(1, 2, 3)
-#(1, 2, 3)
+# (1, 2, 3)
 # {}
 
 
@@ -469,7 +447,6 @@ x = print_name_with_prefix("hello")
 
 # ciser encryption of a text and shift key
 def encrypt(text, key):
-
     encrypted_text = ''
 
     # Fill in the blanks to create an encrypted text
@@ -483,7 +460,6 @@ def encrypt(text, key):
 # Check the encryption function with the shift equals to 10
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 print(encrypt("datacamp", 10))
-
 
 # Create a word list from the string stored in text
 text = 'StRing ObJeCts haVe mANy inTEResting pROPerTies'
@@ -537,7 +513,7 @@ def primeFactors(n):
 
     # n must be odd at this point
     # so a skip of 2 ( i = i + 2) can be used
-    for i in range(3, int(math.sqrt(n))+1, 2):
+    for i in range(3, int(math.sqrt(n)) + 1, 2):
 
         # while i divides n , print i and divide n
         while n % i == 0:
@@ -553,7 +529,6 @@ def primeFactors(n):
 # Driver Program to test above function
 n = 315
 primeFactors(n)
-
 
 """
 Write a function to swap a number in place (that is, without temporary variables) .
@@ -590,6 +565,8 @@ def plusOne(A):
 
 l = [25, 30, 40, 50]
 plusOne(l)
+
+
 # ['2', '5', '3', '0', '4', '0', '5', '1']
 
 # Traversing from one point to another point
@@ -599,10 +576,10 @@ plusOne(l)
 def traversal_steps(A, B):
     points = list(zip(A, B))
     minSteps = 0
-    for p in range(len(points)-1):
+    for p in range(len(points) - 1):
         # taking the manhattan distance between x and y-coordinates
-        d1 = abs(points[p][0] - points[p+1][0])
-        d2 = abs(points[p][1] - points[p+1][1])
+        d1 = abs(points[p][0] - points[p + 1][0])
+        d2 = abs(points[p][1] - points[p + 1][1])
         # adding the maximum among the two to the running steps parameter
         minSteps += max(d1, d2)
     return (minSteps)
@@ -802,28 +779,32 @@ def sort_binary_digits(arr):
         if arr[right] == 1:
             right -= 1
 
+
 # Example usage:
 binary_digits = [0, 1, 1, 0, 1, 0, 0, 1]
 sort_binary_digits(binary_digits)
 print(binary_digits)  # Output: [0, 0, 0, 0, 1, 1, 1, 1]
 
+
 # first non repeating character from a string
 def first_non_repeating(s):
-  freq = {}
+    freq = {}
 
-  # count char
-  for ch in s:
-    freq[ch] = freq.get(ch, 0) + 1
+    # count char
+    for ch in s:
+        freq[ch] = freq.get(ch, 0) + 1
 
-  # first char
-  for ch in s:
-    if freq[ch] == 1:
-      return ch
-  return None
+    # first char
+    for ch in s:
+        if freq[ch] == 1:
+            return ch
+    return None
+
 
 s = "successful"
 result = first_non_repeating(s)
 print(result)
+
 
 # from a sentence i need to find out longest possible palindrom
 def longest_palindrome(s):
@@ -854,3 +835,45 @@ def longest_palindrome(s):
 s = "madamabckayak"
 result = longest_palindrome(s)
 print(f"longest palindrom is: {result}")
+
+
+def merge_sorted_arrays(arr1, arr2):
+    """
+    Merges two sorted arrays into a single sorted array.
+
+    Time Complexity: O(n + m)
+    Space Complexity: O(n + m)
+    """
+    merged = []
+    i, j = 0, 0
+
+    # Traverse both arrays simultaneously
+    while i < len(arr1) and j < len(arr2):
+        if arr1[i] <= arr2[j]:
+            merged.append(arr1[i])
+            i += 1
+        else:
+            merged.append(arr2[j])
+            j += 1
+
+    # Append remaining elements from arr1 (if any)
+    while i < len(arr1):
+        merged.append(arr1[i])
+        i += 1
+
+    # Append remaining elements from arr2 (if any)
+    while j < len(arr2):
+        merged.append(arr2[j])
+        j += 1
+
+    return merged
+
+
+# Example Usage
+a = [1, 3, 5, 7, 9]
+b = [2, 4, 6, 8, 10, 11, 12]  # Different length
+
+result = merge_sorted_arrays(a, b)
+print(f"Array 1: {a}")
+print(f"Array 2: {b}")
+print(f"Merged:  {result}")
