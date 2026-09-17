@@ -46,4 +46,4 @@ def numbers_to_strings(argument):
 # Driver program
 if __name__ == "__main__":
     argument = 0
-    print numbers_to_strings(argument)
+    print(numbers_to_strings(argument))

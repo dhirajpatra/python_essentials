@@ -13,6 +13,6 @@ for a given year which is >= 1900.
 import calendar
 
 
-cal= calendar.TextCalendar(calendar.SUNDAY)
-print(cal.prmonth(2019,1)
+cal = calendar.TextCalendar(calendar.SUNDAY)
+print(cal.prmonth(2019, 1))
 print(calendar.SUNDAY)

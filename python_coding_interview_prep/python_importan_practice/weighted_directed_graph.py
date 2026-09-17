@@ -121,8 +121,10 @@ if __name__ == '__main__':
  
     # Input: Edges in a weighted digraph (as per the above diagram)
     # Edge (x, y, w) represents an edge from `x` to `y` having weight `w`
-    edges = [(0, 1, 6), (1, 2, 7), (2, 0, 5), (2, 1, 4), (3, 4, 10),
-            (4, 5, 1), (5, 4, 3), (1, 3, 2), (4, 3, 2), (1, 3, 5)]
+    edges = [
+        (0, 1, 6), (1, 2, 7), (2, 0, 5), (2, 1, 4), (3, 4, 10),
+        (4, 5, 1), (5, 4, 3), (1, 3, 2), (4, 3, 2), (1, 3, 5)
+    ]
  
     # No. of vertices (labelled from 0 to 5)
     n = 6

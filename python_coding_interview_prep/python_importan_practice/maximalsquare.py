@@ -29,7 +29,7 @@ matrix[i][j] is '0' or '1'.
 
 
 class Solution:
-    def maximalSquare(self, matrix: List[List[str]) -> int:
+    def maximalSquare(self, matrix: List[List[str]]) -> int:
         if not matrix:
             return 0
 

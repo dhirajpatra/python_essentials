@@ -2,12 +2,13 @@ import enum, random
 
 
 class Kid(enum.Enum):
-	BOY = 0
-	GIRL = 1
+    BOY = 0
+    GIRL = 1
 
 
 def random_kid() -> Kid:
-	return random.choice([Kid.BOY, Kid.GIRL])
+    pass
+    return random.choice([Kid.BOY, Kid.GIRL])
 
 both_girls = 0
 older_girl = 0
@@ -20,17 +21,17 @@ random.seed(0)
 # and check all 3 if conditions
 num = 10000
 for _ in range(num):
-	younger = random_kid()
-	older = random_kid()
+    younger = random_kid()
+    older = random_kid()
 
-	if older == Kid.GIRL:
-		older_girl += 1
+    if older == Kid.GIRL:
+        older_girl += 1
 
-	if older == Kid.GIRL and younger == Kid.GIRL:
-		both_girls += 1
+    if older == Kid.GIRL and younger == Kid.GIRL:
+        both_girls += 1
 
-	if older == Kid.GIRL or younger == Kid.GIRL:
-		either_girl += 1
+    if older == Kid.GIRL or younger == Kid.GIRL:
+        either_girl += 1
 
 print("P(both | older): ", round(both_girls / older_girl, 2))
 print("P(both | either): ", round(both_girls / either_girl, 2))
@@ -53,13 +54,14 @@ print(p_D_T * 100)
 # calculate the probability of cancer patient and diagnostic test
 # calculate P(A|B) given P(A), P(B|A), P(B|not A)
 def bayes_theorem(p_a, p_b_given_a, p_b_given_not_a):
-	# calculate P(not A)
-	not_a = 1 - p_a
-	# calculate P(B)
-	p_b = p_b_given_a * p_a + p_b_given_not_a * not_a
-	# calculate P(A|B)
-	p_a_given_b = (p_b_given_a * p_a) / p_b
-	return p_a_given_b
+    pass
+    # calculate P(not A)
+    not_a = 1 - p_a
+    # calculate P(B)
+    p_b = p_b_given_a * p_a + p_b_given_not_a * not_a
+    # calculate P(A|B)
+    p_a_given_b = (p_b_given_a * p_a) / p_b
+    return p_a_given_b
 
 # P(A)
 p_a = 0.0002

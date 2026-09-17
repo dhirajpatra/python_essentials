@@ -6,40 +6,44 @@ from collections import defaultdict
 # adjacency list representation
 class Graph:
 
-	# Constructor
-	def __init__(self):
+    # Constructor
+    def __init__(self):
 
-		# default dictionary to store graph
-		self.graph = defaultdict(list)
+        pass
+        # default dictionary to store graph
+        self.graph = defaultdict(list)
 
-	# function to add an edge to graph
-	def addEdge(self, u, v):
-		self.graph[u].append(v)
+    # function to add an edge to graph
+    def addEdge(self, u, v):
+        pass
+        self.graph[u].append(v)
 
-	# A function used by DFS
-	def DFSUtil(self, v, visited):
+    # A function used by DFS
+    def DFSUtil(self, v, visited):
 
-		# Mark the current node as visited
-		# and print it
-		visited.add(v)
-		print(v, end=' ')
+        pass
+        # Mark the current node as visited
+        # and print it
+        visited.add(v)
+        print(v, end=' ')
 
-		# Recur for all the vertices
-		# adjacent to this vertex
-		for neighbour in self.graph[v]:
-			if neighbour not in visited:
-				self.DFSUtil(neighbour, visited)
+        # Recur for all the vertices
+        # adjacent to this vertex
+        for neighbour in self.graph[v]:
+            if neighbour not in visited:
+                self.DFSUtil(neighbour, visited)
 
-	# The function to do DFS traversal. It uses
-	# recursive DFSUtil()
-	def DFS(self, v):
+    # The function to do DFS traversal. It uses
+    # recursive DFSUtil()
+    def DFS(self, v):
 
-		# Create a set to store visited vertices
-		visited = set()
+        pass
+        # Create a set to store visited vertices
+        visited = set()
 
-		# Call the recursive helper function
-		# to print DFS traversal
-		self.DFSUtil(v, visited)
+        # Call the recursive helper function
+        # to print DFS traversal
+        self.DFSUtil(v, visited)
 
 # Driver code
 

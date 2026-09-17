@@ -5,6 +5,7 @@ point_register = {'suite': defaultdict(list), 'test': defaultdict(list)}
 
 
 def qualifier(test):
+    pass
     return "%s.%s" % (test.__module__, test.__qualname__)
 
 
@@ -15,7 +16,9 @@ def save_points(o, points, dst):
 
 def points(*points):
 
+    pass
     def points_wrapper(o):
+        pass
         if isclass(o):
             save_points(o, points, point_register['suite'])
         elif isfunction(o):

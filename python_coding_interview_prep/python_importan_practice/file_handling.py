@@ -1,6 +1,6 @@
 with open("test.txt", "w") as file:
-	for number in range(10):
-		file.write(str(number))
+    for number in range(10):
+        file.write(str(number))
 
 
 data = open("test.txt").read()
@@ -9,11 +9,11 @@ print(data)
 
 # automated close the file when read/write operation complete
 with open("test.txt", "r") as file:
-	line = file.readline()
-	print(line)
+    line = file.readline()
+    print(line)
 
 # # read an image file in binary mode
 # with open("path of the image file", "rb") as file:
-# 	data = file.read()
-# 	print(data)
+#   data = file.read()
+#   print(data)
 

@@ -34,7 +34,7 @@ Follow up: Could you do this using only O(n) extra space, where n is the total n
 
 
 class Solution:
-    def minimumTotal(self, triangle: List[List[int]) -> int:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
         n = len(triangle)
 
         # Start from the second-to-last row and work your way up.

@@ -659,10 +659,9 @@ def find_end(arr: list, target: int) -> int:
 
 
 def first_and_last(arr: list, target: int) -> list:
-    if len(arr) == 0
-    or arr[0] > target
-    or arr[-1] < target:
+    if len(arr) == 0 or arr[0] > target or arr[-1] < target:
         return [-1, -1]
+
     start = find_start(arr, target)
     end = find_end(arr, target)
     return [start, end]
@@ -807,3 +806,51 @@ def sort_binary_digits(arr):
 binary_digits = [0, 1, 1, 0, 1, 0, 0, 1]
 sort_binary_digits(binary_digits)
 print(binary_digits)  # Output: [0, 0, 0, 0, 1, 1, 1, 1]
+
+# first non repeating character from a string
+def first_non_repeating(s):
+  freq = {}
+
+  # count char
+  for ch in s:
+    freq[ch] = freq.get(ch, 0) + 1
+
+  # first char
+  for ch in s:
+    if freq[ch] == 1:
+      return ch
+  return None
+
+s = "successful"
+result = first_non_repeating(s)
+print(result)
+
+# from a sentence i need to find out longest possible palindrom
+def longest_palindrome(s):
+    if not s:
+        return ""
+
+    start = end = 0
+
+    def expand(left, right):
+        # This loop expands around the center
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return left + 1, right - 1
+
+    for i in range(len(s)):
+        # odd
+        l1, r1 = expand(i, i)
+        # even
+        l2, r2 = expand(i, i + 1)
+
+        if r1 - l1 > end - start:
+            start, end = l2, r2
+
+    return s[start:end + 1]
+
+
+s = "madamabckayak"
+result = longest_palindrome(s)
+print(f"longest palindrom is: {result}")

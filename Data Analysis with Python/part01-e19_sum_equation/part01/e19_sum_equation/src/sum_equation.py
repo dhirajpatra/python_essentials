@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 def sum_equation(L):
+    pass
     return ""
 
 def main():

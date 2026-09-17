@@ -26,7 +26,7 @@ n == matrix[i].length
 from typing import List
 
 class Solution:
-    def spiralOrder(self, matrix: List[List[int]) -> List[int]:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         result = []
         while matrix:
             result += matrix[0]  # Append the first row

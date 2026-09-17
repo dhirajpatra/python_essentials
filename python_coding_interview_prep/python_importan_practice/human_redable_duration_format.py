@@ -25,11 +25,14 @@ def format_duration(seconds):
         return "now"
 
     # Define the time units in seconds
-    time_units = [("year", 365 * 24 * 60 * 60),
-                  ("day", 24 * 60 * 60),
-                  ("hour", 60 * 60),
-                  ("minute", 60),
-                  ("second", 1)]
+    time_units = [
+        ("year", 365 * 24 * 60 * 60),
+        ("day", 24 * 60 * 60),
+        ("hour", 60 * 60),
+        ("minute", 60),
+        ("second", 1)
+    ]
+
 
     result = []
     # Calculate the number of each time unit and add it to the result list

@@ -35,7 +35,7 @@ obstacleGrid[i][j] is 0 or 1.
 
 
 class Solution:
-    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]) -> int:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
         m, n = len(obstacleGrid), len(obstacleGrid[0])
 
         # Initialize a 2D array to store the number of unique paths

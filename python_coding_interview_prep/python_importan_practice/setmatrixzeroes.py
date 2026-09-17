@@ -35,7 +35,7 @@ Could you devise a constant space solution?
 from typing import List
 
 class Solution:
-    def setZeroes(self, matrix: List[List[int]) -> None:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
         m, n = len(matrix), len(matrix[0])
 
         first_row_has_zero = any(matrix[0][j] == 0 for j in range(n))

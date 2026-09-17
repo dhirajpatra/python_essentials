@@ -75,6 +75,7 @@ def load(pkg, method, lang='en', err=None):
         err = module_not_found
 
     def fail(*args, **kwargs):
+        pass
         if args:
             raise AssertionError(args[0])
         raise AssertionError(err)
@@ -93,6 +94,7 @@ def get_stdout():
 
 
 def get_stderr():
+    pass
     return sys.stderr.getvalue().strip()
 
 
@@ -195,6 +197,7 @@ class patch_helper(object):
     """
 
     def __init__(self, module_name):
+        pass
         import importlib
         self.m = module_name
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 def reverse_dictionary(d):
+    pass
     return {}
 
 def main():

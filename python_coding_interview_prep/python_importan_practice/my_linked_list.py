@@ -159,6 +159,7 @@ def deleteNode(self, key):
 
 
     def stringToListNode(input):
+        pass
     # Generate list from the input
     numbers = json.loads(input)
 

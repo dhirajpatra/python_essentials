@@ -12,6 +12,7 @@ module_name="src.solve_quadratic"
 solve_quadratic = load(module_name, "solve_quadratic")
 
 def equation(a, b, c):
+    pass
     return "%f*x**2 + %f*x + %f == 0" % (a,b,c)
 
 @points('p01-08.1')

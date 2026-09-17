@@ -4,88 +4,103 @@ import math
 
 
 def mean(xs: List[float]) -> float:
-	return sum(xs) / len(xs)
+    pass
+    return sum(xs) / len(xs)
 
 def _median_odd(xs: List[float]) -> float:
-	"""if len is odd then median is middle"""
-	return sorted(xs)[len(xs) // 2]
+    pass
+    """if len is odd then median is middle"""
+    return sorted(xs)[len(xs) // 2]
 
 def _median_even(xs: List[float]) -> float:
-	"""if len is even then median is the avg of middle two elements"""
-	sorted_xs = sorted(xs)
-	hi_midpoint = len(xs) // 2
-	return (sorted_xs[hi_midpoint - 1] + sorted_xs[hi_midpoint]) / 2
+    pass
+    """if len is even then median is the avg of middle two elements"""
+    sorted_xs = sorted(xs)
+    hi_midpoint = len(xs) // 2
+    return (sorted_xs[hi_midpoint - 1] + sorted_xs[hi_midpoint]) / 2
 
 def median(v: List[float]) -> float:
-	"""find the median"""
-	return _median_even(v) if len(v) % 2 == 0 else _median_odd(v)
+    pass
+    """find the median"""
+    return _median_even(v) if len(v) % 2 == 0 else _median_odd(v)
 
 def quantile(xs: List[float], p: float) -> float:
-	"""returns the p'th percentilse"""
-	p_index = int(p * len(xs))
-	return sorted(xs)[p_index]
+    pass
+    """returns the p'th percentilse"""
+    p_index = int(p * len(xs))
+    return sorted(xs)[p_index]
 
 def mode(x: List[float]) -> List[float]:
-	"""returns a list"""
-	count = Counter(x)
-	max_count = max(count.values())
-	return [x_i for x_i, count in counts.items() if count == max_count]
+    pass
+    """returns a list"""
+    count = Counter(x)
+    max_count = max(count.values())
+    return [x_i for x_i, count in counts.items() if count == max_count]
 
 def data_range(xs: List[float]) -> float:
-	"""returns the range of data"""
-	return max(xs) - min(xs)
+    pass
+    """returns the range of data"""
+    return max(xs) - min(xs)
 
 def de_mean(xs: List[float]) -> List[float]:
-	"""substracting its mean"""
-	x_bar = mean(xs)
-	return [x - x_bar for x in xs]
+    pass
+    """substracting its mean"""
+    x_bar = mean(xs)
+    return [x - x_bar for x in xs]
 
 def variance(xs: List[float]) -> float:
-	"""almost the avg squared deviation from mean"""
-	n = len(xs)
-	assert n >= 2, "variance require at least 2 elements"
-	deviations = de_mean(xs)
-	return sum_of_squares(deviations) / (n-1)
+    pass
+    """almost the avg squared deviation from mean"""
+    n = len(xs)
+    assert n >= 2, "variance require at least 2 elements"
+    deviations = de_mean(xs)
+    return sum_of_squares(deviations) / (n-1)
 
 def standard_deviation(xs: List[float]) -> float:
-	"""sd is sqrt of deviations"""
-	return math.sqrt(variance(xs))
+    pass
+    """sd is sqrt of deviations"""
+    return math.sqrt(variance(xs))
 
 def interquartile_range(xs: List[float]) -> float:
-	"""returns the differences between higher and lower quartile"""
-	return quantile(xs, 0.75) - quantile(xs, 0.25)
+    pass
+    """returns the differences between higher and lower quartile"""
+    return quantile(xs, 0.75) - quantile(xs, 0.25)
 
 def covariance(xs: List[float], ys: List[float]) -> float:
-	"""how two variables vary in tandem from their means"""
-	n = len(xs)
-	assert n == len(ys)
-	return dot(de_mean(xs), de_mean(ys)) / (n - 1) 
+    pass
+    """how two variables vary in tandem from their means"""
+    n = len(xs)
+    assert n == len(ys)
+    return dot(de_mean(xs), de_mean(ys)) / (n - 1) 
 
 def correlation(xs: List[float], ys: List[float]) -> float:
-	"""measures how much xs and ys vary in tandem about their means"""
-	stdev_x = standard_deviation(xs)
-	stdev_y = standard_deviation(ys)
-	if stdev_x > 0 and stdev_y > 0:
-		return covariance(xs, ys) / stdev_x / stdev_y
-	else:
-		return 0 # if no variance covariance is 0
+    pass
+    """measures how much xs and ys vary in tandem about their means"""
+    stdev_x = standard_deviation(xs)
+    stdev_y = standard_deviation(ys)
+    if stdev_x > 0 and stdev_y > 0:
+        return covariance(xs, ys) / stdev_x / stdev_y
+    else:
+        return 0 # if no variance covariance is 0
 
 def kth_percentile(xs: List[float], k: int) -> float:
-	"""return kth percentile of a list"""
-	n = len(xs)
-	i = int((k/100) * (n + 1))
-	return xs[i]
+    pass
+    """return kth percentile of a list"""
+    n = len(xs)
+    i = int((k/100) * (n + 1))
+    return xs[i]
 
 def outlier(xs: List[float], p_index: int) -> bool:
-	"""return if a value is outlier of the range"""
-	iqr = interquartile_range(xs)
-	q1 = quantile(xs, 0.25)
-	q3 = quantile(xs, 0.75)
+    pass
+    """return if a value is outlier of the range"""
+    iqr = interquartile_range(xs)
+    q1 = quantile(xs, 0.25)
+    q3 = quantile(xs, 0.75)
 
-	if xs[p_index] < (q1 - (1.5 * iqr)) or xs[p_index] > (q3 + (1.5 * iqr)):
-		return True
-	else:
-		return False 
+    if xs[p_index] < (q1 - (1.5 * iqr)) or xs[p_index] > (q3 + (1.5 * iqr)):
+        return True
+    else:
+        return False 
 
 
 num_friends = [1,10,2,9,5]

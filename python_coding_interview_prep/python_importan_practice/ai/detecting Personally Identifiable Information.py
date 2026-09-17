@@ -1,6 +1,6 @@
 """
-pip install spacy
-python -m spacy download en_core_web_sm
+# pip install spacy
+# python -m spacy download en_core_web_sm
 
 PIIDetector.PATTERNS["PASSPORT"] = r'\b[A-Z]{1,2}\d{6,9}\b'
 

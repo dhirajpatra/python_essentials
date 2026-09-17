@@ -27,7 +27,7 @@ from math import gcd
 
 
 class Solution:
-    def maxPoints(self, points: List[List[int]) -> int:
+    def maxPoints(self, points: List[List[int]]) -> int:
 
         def compute_slope(p1, p2):
             if p1[0] == p2[0]:

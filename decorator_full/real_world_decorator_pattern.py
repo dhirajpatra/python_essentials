@@ -184,4 +184,4 @@ try:
     # This will fail
     user = create_user("Bob", "25", "bob@email.com")  # age is string, not int
 except TypeError as e:
-    print(f"Validation Error: {e
+    print(f"Validation Error: {e}")

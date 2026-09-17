@@ -88,7 +88,7 @@ class Solution:
 
 # Sample usage
 solution = Solution()
-head1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5))))
+head1 = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))) )
 k1 = 2
 result1 = solution.reverseKGroup(head1, k1)
 while result1:

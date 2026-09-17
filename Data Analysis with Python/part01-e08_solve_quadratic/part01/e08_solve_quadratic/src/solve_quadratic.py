@@ -3,6 +3,7 @@
 import math
 
 def solve_quadratic(a, b, c):
+    pass
     return (0,0)
 
 

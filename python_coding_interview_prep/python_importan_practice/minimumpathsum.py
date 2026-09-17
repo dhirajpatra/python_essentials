@@ -27,7 +27,7 @@ n == grid[i].length
 
 
 class Solution:
-    def minPathSum(self, grid: List[List[int]) -> int:
+    def minPathSum(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
 
         # Initialize a 2D array to store the minimum path sum

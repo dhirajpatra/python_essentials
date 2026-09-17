@@ -15,6 +15,7 @@ class TMCTestRunner(TextTestRunner):
         super(TMCTestRunner, self).__init__(*args, **kwargs)
 
     def run(self, test):
+        pass
         print('Running tests with some TMC magic...')
         return super(TMCTestRunner, self).run(test)
 

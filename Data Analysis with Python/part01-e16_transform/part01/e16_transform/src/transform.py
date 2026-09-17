@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 def transform(s1, s2):
+    pass
     return []
 
 def main():

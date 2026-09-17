@@ -11,6 +11,7 @@
 
 def main():
     # Enter your code here, this is the correct indentation
+    pass
 
 # This makes sure the main function is not called immediatedly
 # when TMC imports this module

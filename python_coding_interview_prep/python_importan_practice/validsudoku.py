@@ -49,7 +49,7 @@ board[i][j] is a digit 1-9 or '.'.
 from typing import List
 
 class Solution:
-    def isValidSudoku(self, board: List[List[str]) -> bool:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
         # Function to check the validity of a Sudoku board
         # Check rows and columns for duplicate numbers
         for i in range(9):

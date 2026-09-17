@@ -5,13 +5,13 @@ x = [1, 2, 3]
 y = x
 x[0] = 5    # value of 'y' also changes as it is the SAME object
 x[1] = 15
-print "Shallow copy: ", y
+print("Shallow copy: ", y)
 
 # Using copy.deepcopy()
 a = [10, 20, 30]
 b = deepcopy(a)
 a[1] = 70   # value of 'b' does NOT change because it is ANOTHER object
-print "Deep copy: ", b
+print("Deep copy: ", b)
 
 
 list_1 = [1, 2, [3, 5], 4]

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 def detect_ranges(L):
+    pass
     return []
 
 def main():

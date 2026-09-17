@@ -193,10 +193,9 @@ if __name__ == '__main__':
 
     path = search(maze, cost, start, end)
     if path:
-        print('\n'.join([''.join(["{:" ">3d}".format(item) for item in row])
-                         for row in path]))
+        print('\n'.join([''.join(["{:>3d}".format(item) for item in row]) for row in path]))
         print("\n")
-        print('\n'.join([''.join(["{:" ">3d}".format(item) if item != -1 else '   ' for item in row])
-                         for row in path]))
+        print('\n'.join([''.join(["{:>3d}".format(item) if item != -1 else '   ' for item in row]) for row in path]))
+
     else:
         print('Destination not reachable')
