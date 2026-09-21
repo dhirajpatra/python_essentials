@@ -1,61 +1,61 @@
+import heapq
 import sys
 
-# dijkstra algorithm used for google map and other similar application
-# Function to find out which of the unvisited node
-# needs to be visited next
-def to_be_visited():
-    global visited_and_distance
-    v = -10
-    # Choosing the vertex with the minimum distance
-    for index in range(number_of_vertices):
-        if visited_and_distance[index][0] == 0 \
-            and (v < 0 or visited_and_distance[index][1] <= \
-                 visited_and_distance[v][1]):
-            v = index
-    return v
+# Dijkstra's algorithm — used in Google Maps, GPS routing, network routing protocols.
+# Time: O((V + E) log V) using min-heap | Space: O(V)
+
+class Graph:
+    def __init__(self, num_vertices: int):
+        self.num_vertices = num_vertices
+        # Adjacency list: {node: [(neighbor, weight), ...]}
+        self.adj = {i: [] for i in range(num_vertices)}
+
+    def add_edge(self, src: int, dest: int, weight: float):
+        """Add a directed weighted edge."""
+        self.adj[src].append((dest, weight))
+
+    def dijkstra(self, source: int) -> list[float]:
+        """
+        Returns shortest distances from source to all vertices.
+        Uses a min-heap for efficient next-node selection.
+        """
+        distances = [sys.maxsize] * self.num_vertices
+        distances[source] = 0
+
+        # Min-heap: (distance, vertex)
+        heap = [(0, source)]
+
+        while heap:
+            curr_dist, curr_vertex = heapq.heappop(heap)
+
+            # Skip if we already found a shorter path
+            if curr_dist > distances[curr_vertex]:
+                continue
+
+            for neighbor, weight in self.adj[curr_vertex]:
+                new_dist = curr_dist + weight
+                if new_dist < distances[neighbor]:
+                    distances[neighbor] = new_dist
+                    heapq.heappush(heap, (new_dist, neighbor))
+
+        return distances
+
+    def print_shortest_paths(self, source: int):
+        """Print shortest distances from source to all vertices."""
+        distances = self.dijkstra(source)
+        source_label = chr(ord('a') + source)
+        for i, dist in enumerate(distances):
+            print(f"Shortest distance from '{source_label}' to '{chr(ord('a') + i)}': {dist}")
 
 
-# Creating the graph as an adjacency matrix
-vertices = [[0, 1, 1, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1],
-            [0, 0, 0, 0]]
-edges = [[0, 3, 4, 0],
-         [0, 0, 0.5, 0],
-         [0, 0, 0, 1],
-         [0, 0, 0, 0]]
+if __name__ == "__main__":
+    # Graph with 4 vertices (a=0, b=1, c=2, d=3)
+    # Original adjacency matrix edges:
+    # a->b: 3, a->c: 4, b->c: 0.5, c->d: 1
+    g = Graph(num_vertices=4)
+    g.add_edge(0, 1, 3)
+    g.add_edge(0, 2, 4)
+    g.add_edge(1, 2, 0.5)
+    g.add_edge(2, 3, 1)
 
-number_of_vertices = len(vertices[0])
-
-# The first element of the lists inside visited_and_distance
-# denotes if the vertex has been visited.
-# The second element of the lists inside the visited_and_distance
-# denotes the distance from the source.
-visited_and_distance = [[0, 0]]
-for i in range(number_of_vertices-1):
-    visited_and_distance.append([0, sys.maxsize])
-
-for vertex in range(number_of_vertices):
-    # Finding the next vertex to be visited.
-    to_visit = to_be_visited()
-    for neighbor_index in range(number_of_vertices):
-        # Calculating the new distance for all unvisited neighbours
-        # of the chosen vertex.
-        if vertices[to_visit][neighbor_index] == 1 and \
-                visited_and_distance[neighbor_index][0] == 0:
-            new_distance = visited_and_distance[to_visit][1] \
-            + edges[to_visit][neighbor_index]
-        # Updating the distance of the neighbor if its current distance
-        # is greater than the distance that has just been calculated
-        if visited_and_distance[neighbor_index][1] > new_distance:
-            visited_and_distance[neighbor_index][1] = new_distance
-        # Visiting the vertex found earlier
-        visited_and_distance[to_visit][0] = 1
-
-    i = 0
-
-# Printing out the shortest distance from the source to each vertex
-for distance in visited_and_distance:
-    print("The shortest distance of ", chr(ord('a') + i),\
-          " from the source vertex a is:", distance[1])
-    i = i + 1
+    g.print_shortest_paths(source=0)
