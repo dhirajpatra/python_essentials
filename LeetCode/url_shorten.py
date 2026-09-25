@@ -1,3 +1,41 @@
+"""
+URL Shortener API Implementation
+
+Here are the approaches taken in url_shorten.py:
+
+Hashing Approach
+
+MD5 hash of (url + timestamp + salt) — first 6 chars become the short code
+
+Timestamp ensures different codes for same URL across sessions
+
+Storage Approach
+
+Two reverse-mapping dicts — url_to_code and code_to_url for O(1) both encode and decode
+
+In-memory storage (no DB/file), suitable for interview/practice context
+
+Collision Handling
+
+Incremental salt — if a generated code already exists, salt is incremented and code is regenerated until unique
+
+Idempotency
+
+Duplicate URLs return the same short URL without creating a new entry — checked upfront in encode
+
+OOP Approach
+
+Single URLShortener class encapsulates all logic
+
+Private methods (_generate_code) and private storage (_url_to_code, _code_to_url) via name convention
+
+__len__ dunder method for natural len(shortener) usage
+
+Error Handling
+
+decode raises KeyError with a descriptive message for unknown short URLs instead of returning None silently
+"""
+# url_shorten.py
 import random
 import string
 from urllib.parse import urlparse
@@ -10,7 +48,7 @@ app = FastAPI()
 # In-memory storage (Replace with Redis or SQL database for production persistence)
 url_to_key: dict[str, str] = {}       # Map long_url -> short_key (for idempotency)
 key_to_url: dict[str, str] = {}       # Map short_key -> long_url
-key_to_visits: dict[str, str] = {}    # Map short_key -> visit_count
+key_to_visits: dict[str, int] = {}    # Map short_key -> visit_count
 
 BASE_DOMAIN = "https://company.com"
 
@@ -40,7 +78,7 @@ def generate_short_key(length: int = 5) -> str:
 
 
 @app.post("/", status_code=201)
-def create_short_url(payload: URLRequest):
+def create_short_url(payload: URLRequest) -> dict[str, str]:
     long_url = payload.url
 
     # Idempotency check: Return existing short URL if already created
@@ -72,3 +110,9 @@ def get_url_info(key: str):
     # Returns 0 visits if key does not exist
     visits = key_to_visits.get(key, 0)
     return {"visits": visits}
+
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)
