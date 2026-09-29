@@ -24,6 +24,8 @@ Constraints:
 
 1 <= s.length <= 1000
 s is made up of only printable ASCII characters.
+
+This is O(n) time and space complexity
 """
 class Solution:
     def alphanum(self, c: str) -> bool:
