@@ -46,3 +46,9 @@ class Solution:
             l += 1
             r -= 1
         return True
+
+
+if __name__ == "__main__":
+    solution = Solution()
+    print(solution.isPalindrome("Was it a car or a cat I saw?"))  # Expected output: True
+    print(solution.isPalindrome("tab a cat"))  # Expected output: False
