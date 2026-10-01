@@ -32,6 +32,7 @@ class Solution:
         return c.isalnum()
 
     def isPalindrome(self, s: str) -> bool:
+        # l is starting and r is last index
         l, r = 0, len(s) - 1
 
         # till left pointer is less than right pointer
