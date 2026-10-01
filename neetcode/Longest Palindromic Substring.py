@@ -6,46 +6,47 @@ A palindrome is a string that reads the same forward and backward.
 If there are multiple palindromic substrings that have the same length, return any one of them.
 
 Example 1:
-
 Input: s = "ababd"
-
 Output: "bab"
 Explanation: Both "aba" and "bab" are valid answers.
 
 Example 2:
-
 Input: s = "abbc"
-
 Output: "bb"
 Constraints:
 
 1 <= s.length <= 1000
 s contains only digits and English letters.
+
+Time complexity: O(n^2) Space complexity: O(1)
 """
 class Solution:
+    def expand_around_center(self, s: str, left: int, right: int) -> str:
+        # Expand outwards as long as characters match and indices are valid
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        # Return the valid palindrome substring found
+        return s[left + 1:right]
+
     def longestPalindrome(self, s: str) -> str:
-        res = ""
-        resLen = 0
+        if not s:
+            return ""
+
+        result = ""
 
         for i in range(len(s)):
-            # odd length
-            l, r = i, i
-            while l >= 0 and r < len(s) and s[l] == s[r]:
-                if (r - l + 1) > resLen:
-                    res = s[l:r+1]
-                    resLen = r - l + 1
-                l -= 1
-                r += 1
+            # Case 1: Odd length palindromes (e.g., "aba", center is 'b')
+            p1 = self.expand_around_center(s, i, i)
+            if len(p1) > len(result):
+                result = p1
 
-            # even length
-            l, r = i, i + 1
-            while l >= 0 and r < len(s) and s[l] == s[r]:
-                if (r - l + 1) > resLen:
-                    res = s[l:r+1]
-                    resLen = r - l + 1
-                l -= 1
-                r += 1
-        return res
+            # Case 2: Even length palindromes (e.g., "abba", center is between 'b' and 'b')
+            p2 = self.expand_around_center(s, i, i + 1)
+            if len(p2) > len(result):
+                result = p2
+
+        return result
 
 
 if __name__ == "__main__":
