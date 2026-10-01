@@ -36,7 +36,7 @@ class Solution:
         left = 0
         max_length = 0
 
-        # Iterate through string with right pointer
+        # Iterate through string with right pointer starting at 0 same as left as well
         for right in range(len(s)):
             # If character is already in the set, shrink window from left before putting the current char
             while s[right] in char_set:
