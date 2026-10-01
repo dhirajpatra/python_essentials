@@ -25,6 +25,9 @@ Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
 Constraints:
 1 <= nums.length <= 10^5
 -10^4 <= nums[i] <= 10^4
+
+This code implements Kadane’s Algorithm
+Time Complexity: O(n) Space Complexity: O(1)
 """
 class Solution:
     def maxSubArray(self, nums: list[int]) -> int:
@@ -32,8 +35,9 @@ class Solution:
         max_sum = nums[0]
         current_sum = nums[0]
 
+        # Iterate through the rest of the array
         for num in nums[1:]:
-            # Either extend the current subarray or start a new one
+            # Either extend the current subarray including this num or start a new one with this num
             current_sum = max(num, current_sum + num)
 
             # Update the global maximum if the current subarray sum is larger

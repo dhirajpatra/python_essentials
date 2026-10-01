@@ -28,6 +28,8 @@ Explanation: The brackets are not closed in the correct order.
 Constraints:
 
 1 <= s.length <= 1000
+
+Time Complexity: O(n) Space Complexity: O(n)
 """
 class Solution:
     def is_valid(self, s: str) -> bool:
@@ -47,7 +49,8 @@ class Solution:
                 # if it's an opening bracket, we push it to the stack
                 stack.append(c)
         # checking if the stack is empty
-        return True if not stack else False
+        return True if not stack else False # return not stack
+
 
 if __name__ == "__main__":
     s = Solution()
