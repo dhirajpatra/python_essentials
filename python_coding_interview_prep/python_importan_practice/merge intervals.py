@@ -24,13 +24,17 @@ intervals[i].length == 2
 from typing import List
 
 class Solution:
+    # merge intervals
+    # Time complexity: O(nlogn) | Space complexity: O(1)
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         if not intervals:
             return []
 
+        # sort the intervals by their start times
         intervals.sort(key=lambda x: x[0])
         merged = [intervals[0]]
 
+        # iterate through the intervals and merge overlapping ones
         for i in range(1, len(intervals)):
             current_interval = intervals[i]
             last_merged = merged[-1]
