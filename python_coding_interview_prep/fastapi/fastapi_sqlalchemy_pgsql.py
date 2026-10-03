@@ -54,15 +54,18 @@ class UserOut(BaseModel):
 # ---------- FastAPI app ----------
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # migrations already run via CI/CD, no need for create_all ?
+    # otherwise run below process to create tables if they don't exist
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+    # table creations process ended
     yield
     await engine.dispose()
 
 
 app = FastAPI(lifespan=lifespan)
 
-
+# ORM session starting 
 async def get_db():
     async with SessionLocal() as session:
         yield session

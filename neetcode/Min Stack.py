@@ -55,3 +55,15 @@ class MinStack:
     def getMin(self) -> int:
         if self.min_stack:
             return self.min_stack[-1]
+
+
+if __name__ == "__main__":
+    # Test the MinStack implementation
+    minStack = MinStack()
+    minStack.push(1)
+    minStack.push(2)
+    minStack.push(0)
+    print(minStack.getMin())  # Should print 0
+    minStack.pop()
+    print(minStack.top())     # Should print 2
+    print(minStack.getMin())  # Should print 1

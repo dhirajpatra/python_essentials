@@ -16,6 +16,7 @@ class User(Document):
     age: Optional[int] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
+    # Beanie uses this to know which collection to use
     class Settings:
         name = "users"  # MongoDB collection name
 
